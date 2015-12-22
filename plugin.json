@@ -1,0 +1,21 @@
+{
+  "pluginType": "datasource",
+  "name": "GenericDatasource",
+
+  "type": "genericdatasource",
+  "serviceName": "GenericDatasource",
+
+  "module": "plugins/genericdatasource/datasource",
+
+  "partials": {
+    "config": "public/plugins/genericdatasource/partials/config.html"
+  },
+
+  "staticRoot": {
+    "url": "genericdatasource",
+    "path": "."
+  },
+
+  "metrics": true,
+  "annotations": false
+}
