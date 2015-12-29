@@ -22,7 +22,7 @@ function (angular, _, dateMath, kbn) {
 
     // Called once per panel (graph)
     GenericDatasource.prototype.query = function(options) {
-      var query = this.buildQueryParameters(options);
+      var query = buildQueryParameters(options);
 
       if (query.targets.length <= 0) {
         $q.when([]);
@@ -36,6 +36,8 @@ function (angular, _, dateMath, kbn) {
       });
     };
 
+    // Required
+    // Used for testing datasource in datasource configuration pange
     GenericDatasource.prototype.testDatasource = function() {
       return backendSrv.datasourceRequest({
         url: this.url + '/',
@@ -47,28 +49,30 @@ function (angular, _, dateMath, kbn) {
       });
     };
 
+    // Optional
+    // Required for templating
     GenericDatasource.prototype.metricFindQuery = function(options) {
       return backendSrv.datasourceRequest({
         url: this.url + '/search',
         data: options,
         method: 'POST',
         headers: { 'Content-Type': 'application/json' }
-      }).then(this.mapToTextValue);
+      }).then(mapToTextValue);
     };
 
-    GenericDatasource.prototype.mapToTextValue = function(result) {
+    function mapToTextValue(result) {
       return _.map(result.data, function(d, i) {
         return { text: d, value: i};
       });
     }
 
-    GenericDatasource.prototype.buildQueryParameters = function(options) {
+    function buildQueryParameters(options) {
       options.targets = _.filter(options.targets, function(target) {
         return target.target !== 'select metric';
       });
 
       return options;
-    };
+    }
 
     return GenericDatasource;
   });

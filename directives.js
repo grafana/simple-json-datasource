@@ -6,9 +6,9 @@ function (angular) {
 
   var module = angular.module('grafana.directives');
 
-  //Make sure the name match the directive call from panel_directive.js
-  //In this case <metric-query-editor-genericdatasource>
-  //And watch your casings!
+  // Make sure the name match the directive call from panel_directive.js
+  // In this case <metric-query-editor-genericdatasource>
+  // Watch your casings!
 
   module.directive('metricQueryEditorGenericdatasource', function() {
     return {
