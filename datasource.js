@@ -13,11 +13,12 @@ function (angular, _, dateMath, kbn) {
 
   module.factory('GenericDatasource', function($q, backendSrv, templateSrv) {
 
+    // backendSrv handles all http-requests with proxy/auth
+
     function GenericDatasource(datasource) {
       this.type = datasource.type;
       this.url = datasource.url;
       this.name = datasource.name;
-      this.supportMetrics = true;
     }
 
     // Called once per panel (graph)
