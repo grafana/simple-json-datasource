@@ -7,13 +7,9 @@ Its also serves as an living example implementation of a datasource.
 A guide for installing plugins can be found at [placeholder for links].
 
 Your backend need implement 3 urls
- * /
- * /search
- * /query
-
-/       should return 200 ok. Used for "Test connection" on the datasource config page.
-/search is used to find metric options on the query tab in panels
-/query  Should return metrics based on input
+ * "/" Should return 200 ok. Used for "Test connection" on the datasource config page.
+ * "/search" Used by the find metric options on the query tab in panels
+ * "/query" Should return metrics based on input
 
 ## Metric discovery ##
 
