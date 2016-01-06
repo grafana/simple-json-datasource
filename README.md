@@ -1,3 +1,5 @@
+#Generic backend datasource#
+
 This is a very minimalistic datasource that forwards http requests in a defined format. The idea is that anybody should be able to build an api and retrieve data from any datasource without built-in support in grafana.
 
 Its also serves as an living example implementation of a datasource.
@@ -5,8 +7,8 @@ Its also serves as an living example implementation of a datasource.
 A guide for installing plugins can be found at [placeholder for links].
 
 
-== Request that will be sent to your service ==
-
+## Request that will be sent to your service ##
+```
 {
   range: { from: '2015-12-22T03:06:13.851Z',to: '2015-12-22T06:48:24.137Z' },
   interval: '5s',
@@ -16,20 +18,21 @@ A guide for installing plugins can be found at [placeholder for links].
   format: 'json',
   maxDataPoints: 2495 //decided by the panel
 }
-
-== Expected response ==
+```
+## Expected response ##
 
 An array of
+```
 {
-    "target":"target_name",
-    "datapoints":[
-      [intvalue, timestamp in epoch],
-      [intvalue, timestamp in epoch]
-    ]
-  }
-
-Example
-
+  "target":"target_name",
+  "datapoints":[
+    [intvalue, timestamp in epoch],
+    [intvalue, timestamp in epoch]
+  ]
+}
+```
+###Example###
+```
 [
   {
     "target":"upper_75",
@@ -46,6 +49,6 @@ Example
     ]
   }
 ]
-
-== Example backend implementation ==
+```
+## Example backend implementation ##
 https://gist.github.com/bergquist/bc4aa5baface3cffa109
