@@ -6,8 +6,33 @@ Its also serves as an living example implementation of a datasource.
 
 A guide for installing plugins can be found at [placeholder for links].
 
+Your backend need implement 3 urls
+ * /
+ * /search
+ * /query
 
-## Request that will be sent to your service ##
+/       should return 200 ok. Used for "Test connection" on the datasource config page.
+/search is used to find metric options on the query tab in panels
+/query  Should return metrics based on input
+
+## Metric discovery ##
+
+### Request ###
+```
+{ refId: 'F', target: 'select metric' }
+```
+### Expected Response ###
+
+An array of options based on the target input
+
+####Example####
+```
+["upper_25","upper_50","upper_75","upper_90","upper_95"]
+```
+
+## Metric query ##
+
+### Request ###
 ```
 {
   range: { from: '2015-12-22T03:06:13.851Z',to: '2015-12-22T06:48:24.137Z' },
@@ -19,7 +44,7 @@ A guide for installing plugins can be found at [placeholder for links].
   maxDataPoints: 2495 //decided by the panel
 }
 ```
-## Expected response ##
+### Expected response ###
 
 An array of
 ```
