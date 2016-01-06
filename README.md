@@ -46,3 +46,6 @@ Example
     ]
   }
 ]
+
+== Example backend implementation ==
+https://gist.github.com/bergquist/bc4aa5baface3cffa109
