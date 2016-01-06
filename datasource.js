@@ -11,8 +11,7 @@ function (angular, _, dateMath, kbn) {
 
   var module = angular.module('grafana.services');
 
-  module.factory('GenericDatasource', function($q, backendSrv, templateSrv) {
-
+  module.factory('GenericDatasource', function($q, backendSrv) {
     // backendSrv handles all http-requests with proxy/auth
 
     function GenericDatasource(datasource) {
@@ -44,6 +43,7 @@ function (angular, _, dateMath, kbn) {
         url: this.url + '/',
         method: 'GET'
       }).then(function(response) {
+        console.log(response);
         if (response.status === 200) {
           return { status: "success", message: "Data source is working", title: "Success" };
         }
@@ -68,6 +68,7 @@ function (angular, _, dateMath, kbn) {
     }
 
     function buildQueryParameters(options) {
+      //remove placeholder targets
       options.targets = _.filter(options.targets, function(target) {
         return target.target !== 'select metric';
       });
