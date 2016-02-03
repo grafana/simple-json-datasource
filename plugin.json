@@ -5,10 +5,10 @@
   "type": "genericdatasource",
   "serviceName": "GenericDatasource",
 
-  "module": "plugins/genericdatasource/datasource",
+  "module": "app/plugins/datasource/genericdatasource/datasource",
 
   "partials": {
-    "config": "public/plugins/genericdatasource/partials/config.html"
+    "config": "public/app/plugins/datasource/genericdatasource/partials/config.html"
   },
 
   "staticRoot": {

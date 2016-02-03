@@ -13,13 +13,13 @@ function (angular) {
   module.directive('metricQueryEditorGenericdatasource', function() {
     return {
       controller: 'GenericDatasourceQueryCtrl',
-      templateUrl: 'public/plugins/genericdatasource/partials/query.editor.html'
+      templateUrl: 'public/app/plugins/datasource/genericdatasource/partials/query.editor.html'
     };
   });
 
   module.directive('metricQueryOptionsGenericDatasource', function() {
     return {
-      templateUrl: 'public/plugins/genericdatasource/partials/query.options.html'
+      templateUrl: 'public/app/plugins/datasource/genericdatasource/partials/query.options.html'
     };
   });
 });
