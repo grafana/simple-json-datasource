@@ -9,73 +9,76 @@ define([
 function (angular, _, dateMath, kbn) {
   'use strict';
 
-  var module = angular.module('grafana.services');
+  var self;
+  //var module = angular.module('grafana.services');
 
-  module.factory('GenericDatasource', function($q, backendSrv) {
+  //module.factory('GenericDatasource', function($q, backendSrv) {
     // backendSrv handles all http-requests with proxy/auth
 
-    function GenericDatasource(datasource) {
-      this.type = datasource.type;
-      this.url = datasource.url;
-      this.name = datasource.name;
+  function GenericDatasource(instanceSettings, $q, backendSrv) {
+    this.type = instanceSettings.type;
+    this.url = instanceSettings.url;
+    this.name = instanceSettings.name;
+    this.q = $q;
+    this.backendSrv = backendSrv;
+
+    self = this;
+  }
+
+  // Called once per panel (graph)
+  GenericDatasource.prototype.query = function(options) {
+    var query = buildQueryParameters(options);
+
+    if (query.targets.length <= 0) {
+      return this.q.when([]);
     }
 
-    // Called once per panel (graph)
-    GenericDatasource.prototype.query = function(options) {
-      var query = buildQueryParameters(options);
+    return this.backendSrv.datasourceRequest({
+      url: this.url + '/query',
+      data: query,
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' }
+    });
+  };
 
-      if (query.targets.length <= 0) {
-        $q.when([]);
+  // Required
+  // Used for testing datasource in datasource configuration pange
+  GenericDatasource.prototype.testDatasource = function() {
+    return this.backendSrv.datasourceRequest({
+      url: this.url + '/',
+      method: 'GET'
+    }).then(function(response) {
+      if (response.status === 200) {
+        return { status: "success", message: "Data source is working", title: "Success" };
       }
+    });
+  };
 
-      return backendSrv.datasourceRequest({
-        url: this.url + '/query',
-        data: query,
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' }
-      });
-    };
+  // Optional
+  // Required for templating
+  GenericDatasource.prototype.metricFindQuery = function(options) {
+    return this.backendSrv.datasourceRequest({
+      url: this.url + '/search',
+      data: options,
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' }
+    }).then(mapToTextValue);
+  };
 
-    // Required
-    // Used for testing datasource in datasource configuration pange
-    GenericDatasource.prototype.testDatasource = function() {
-      return backendSrv.datasourceRequest({
-        url: this.url + '/',
-        method: 'GET'
-      }).then(function(response) {
-        console.log(response);
-        if (response.status === 200) {
-          return { status: "success", message: "Data source is working", title: "Success" };
-        }
-      });
-    };
+  function mapToTextValue(result) {
+    return _.map(result.data, function(d, i) {
+      return { text: d, value: i};
+    });
+  }
 
-    // Optional
-    // Required for templating
-    GenericDatasource.prototype.metricFindQuery = function(options) {
-      return backendSrv.datasourceRequest({
-        url: this.url + '/search',
-        data: options,
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' }
-      }).then(mapToTextValue);
-    };
+  function buildQueryParameters(options) {
+    //remove placeholder targets
+    options.targets = _.filter(options.targets, function(target) {
+      return target.target !== 'select metric';
+    });
 
-    function mapToTextValue(result) {
-      return _.map(result.data, function(d, i) {
-        return { text: d, value: i};
-      });
-    }
+    return options;
+  }
 
-    function buildQueryParameters(options) {
-      //remove placeholder targets
-      options.targets = _.filter(options.targets, function(target) {
-        return target.target !== 'select metric';
-      });
-
-      return options;
-    }
-
-    return GenericDatasource;
-  });
+  return GenericDatasource;
 });
