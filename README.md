@@ -4,7 +4,7 @@ This is a very minimalistic datasource that forwards http requests in a defined 
 
 Its also serves as an living example implementation of a datasource.
 
-A guide for installing plugins can be found at [placeholder for links].
+Copy the data source you want to /public/app/plugins/datasource/. Then restart grafana-server. The new data source should now be avalilable in the data source type dropdown in the Add Data Source View.
 
 Your backend need implement 3 urls
  * "/" Should return 200 ok. Used for "Test connection" on the datasource config page.
@@ -73,3 +73,4 @@ An array of
 ```
 ## Example backend implementation ##
 https://gist.github.com/bergquist/bc4aa5baface3cffa109
+https://gist.github.com/tral/1fe649455fe2de9fb8fe
