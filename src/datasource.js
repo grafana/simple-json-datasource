@@ -1,33 +1,16 @@
-define([
-  'angular',
-  'lodash',
-  'app/core/utils/datemath',
-  'app/core/utils/kbn',
-  './query_ctrl',
-  './directives',
-],
-function (angular, _, dateMath, kbn) {
-  'use strict';
+export class GenericDatasource {
 
-  var self;
-  //var module = angular.module('grafana.services');
-
-  //module.factory('GenericDatasource', function($q, backendSrv) {
-    // backendSrv handles all http-requests with proxy/auth
-
-  function GenericDatasource(instanceSettings, $q, backendSrv) {
+  constructor(instanceSettings, $q, backendSrv) {
     this.type = instanceSettings.type;
     this.url = instanceSettings.url;
     this.name = instanceSettings.name;
     this.q = $q;
     this.backendSrv = backendSrv;
-
-    self = this;
   }
 
   // Called once per panel (graph)
-  GenericDatasource.prototype.query = function(options) {
-    var query = buildQueryParameters(options);
+  query(options) {
+    var query = this.buildQueryParameters(options);
 
     if (query.targets.length <= 0) {
       return this.q.when([]);
@@ -39,46 +22,54 @@ function (angular, _, dateMath, kbn) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' }
     });
-  };
+  }
 
   // Required
   // Used for testing datasource in datasource configuration pange
-  GenericDatasource.prototype.testDatasource = function() {
+  testDatasource() {
     return this.backendSrv.datasourceRequest({
       url: this.url + '/',
       method: 'GET'
-    }).then(function(response) {
+    }).then(response => {
       if (response.status === 200) {
         return { status: "success", message: "Data source is working", title: "Success" };
       }
     });
-  };
+  }
+
+  annotationQuery(options) {
+    return this.backendSrv.datasourceRequest({
+      url: this.url + '/annotations',
+      method: 'POST',
+      data: options
+    }).then(result => {
+      return result.data;
+    });
+  }
 
   // Optional
   // Required for templating
-  GenericDatasource.prototype.metricFindQuery = function(options) {
+  metricFindQuery(options) {
     return this.backendSrv.datasourceRequest({
       url: this.url + '/search',
       data: options,
       method: 'POST',
       headers: { 'Content-Type': 'application/json' }
-    }).then(mapToTextValue);
-  };
+    }).then(this.mapToTextValue);
+  }
 
-  function mapToTextValue(result) {
-    return _.map(result.data, function(d, i) {
+  mapToTextValue(result) {
+    return _.map(result.data, (d, i) => {
       return { text: d, value: i};
     });
   }
 
-  function buildQueryParameters(options) {
+  buildQueryParameters(options) {
     //remove placeholder targets
-    options.targets = _.filter(options.targets, function(target) {
+    options.targets = _.filter(options.targets, target => {
       return target.target !== 'select metric';
     });
 
     return options;
   }
-
-  return GenericDatasource;
-});
+}

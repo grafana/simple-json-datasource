@@ -3,12 +3,10 @@
   "id": "datasource-plugin-genericdatasource",
   "type": "datasource",
 
-  "module": "plugins/genericdatasource/datasource",
-
   "staticRoot": ".",
 
   "metrics": true,
-  "annotations": false,
+  "annotations": true,
 
   "info": {
     "description": "generic datsource plugin",
