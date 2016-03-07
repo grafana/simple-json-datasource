@@ -1,0 +1,25 @@
+{
+  "name": "GenericDatasource",
+  "id": "datasource-plugin-genericdatasource",
+  "type": "datasource",
+
+  "staticRoot": ".",
+
+  "metrics": true,
+  "annotations": true,
+
+  "info": {
+    "description": "generic datsource plugin",
+    "author": {
+      "name": "Raintank Inc.",
+      "url": "http://raintank.io"
+    },
+    "version": "1.0.0",
+    "updated": "2016-02-10"
+  },
+
+  "dependencies": {
+    "grafanaVersion": "2.6.x",
+    "plugins": [ ]
+  }
+}
