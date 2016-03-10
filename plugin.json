@@ -1,21 +1,21 @@
 {
-  "name": "GenericDatasource",
-  "id": "datasource-plugin-genericdatasource",
+  "name": "SimpleJson",
+  "id": "simple-json-datasource",
   "type": "datasource",
 
-  "module": "app/plugins/datasource/genericdatasource/datasource",
+  "module": "app/plugins/datasource/simplejson/datasource",
 
   "staticRoot": ".",
 
   "partials": {
-    "config": "public/app/plugins/datasource/genericdatasource/partials/config.html"
+    "config": "public/app/plugins/datasource/simplejson/partials/config.html"
   },
 
   "metrics": true,
   "annotations": false,
 
   "info": {
-    "description": "Generic datasource plugin",
+    "description": "simple json datasource",
     "author": {
       "name": "Raintank Inc.",
       "url": "http://raintank.io"
