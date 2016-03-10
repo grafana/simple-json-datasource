@@ -15,7 +15,7 @@
   "annotations": false,
 
   "info": {
-    "description": "generic datsource plugin",
+    "description": "Generic datasource plugin",
     "author": {
       "name": "Raintank Inc.",
       "url": "http://raintank.io"
