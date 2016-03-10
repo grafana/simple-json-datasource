@@ -3,7 +3,6 @@ npm-debug.log
 coverage/
 .aws-config.json
 awsconfig
-/dist
 /emails/dist
 /public_gen
 /tmp
