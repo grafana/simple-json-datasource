@@ -18,6 +18,10 @@
       "name": "Raintank Inc.",
       "url": "http://raintank.io"
     },
+    "links": [
+      {"name": "GitHub", "url": "https://github.com/grafana/simple-json-datasource"},
+      {"name": "MIT License", "url": "https://github.com/grafana/simple-json-datasource/blob/master/LICENSE"}
+    ],
     "version": "1.0.0",
     "updated": "2016-02-10"
   },
