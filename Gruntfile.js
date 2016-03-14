@@ -14,11 +14,11 @@ module.exports = function(grunt) {
         cwd: 'src',
         expand: true,
         src: ['**/*', '!**/*.js', '!**/*.scss'],
-        dest: 'dist'
+        dest: 'dist/src'
       },
       pluginDef: {
         expand: true,
-        src: 'plugin.json',
+        src: [ 'plugin.json', 'README.md' ],
         dest: 'dist',
       }
     },
@@ -42,7 +42,7 @@ module.exports = function(grunt) {
           cwd: 'src',
           expand: true,
           src: ['**/*.js'],
-          dest: 'dist',
+          dest: 'dist/src',
           ext:'.js'
         }]
       },
