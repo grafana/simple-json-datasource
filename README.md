@@ -20,7 +20,7 @@ https://gist.github.com/tral/1fe649455fe2de9fb8fe
 Use the new grafana-cli tool to install the simple json datasource from the commandline:
 
 ```
-grafana-cli install simple-json-datasource
+grafana-cli plugins install simple-json-datasource
 ```
 
 The plugin will be installed into your grafana plugins directory; the default is /var/lib/grafana/plugins if you installed the grafana package.

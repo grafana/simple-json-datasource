@@ -3,7 +3,7 @@
   "id": "simple-json-datasource",
   "type": "datasource",
 
-  "staticRoot": "src",
+  "staticRoot": ".",
 
   "partials": {
     "config": "public/app/plugins/datasource/simplejson/partials/config.html"
