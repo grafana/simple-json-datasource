@@ -1,6 +1,6 @@
 {
   "name": "SimpleJson",
-  "id": "simple-json-datasource",
+  "id": "grafana-simple-json-datasource",
   "type": "datasource",
 
   "staticRoot": ".",
