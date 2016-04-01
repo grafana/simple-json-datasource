@@ -4,5 +4,10 @@
     <li>
       <metric-segment-model property="ctrl.target.target" get-options="ctrl.getOptions()" on-change="ctrl.onChangeInternal()" css-class="tight-form-item-xxlarge"></metric-segment-model>
     </li>
+    <li class="tight-form-item query-keyword">Filter</li>
+    <li>
+     <input type="text" class="tight-form-input" style="width: 200px;" ng-model="ctrl.target.filter" spellcheck='false' placeholder="filter string (empty = none)" $
+    </li>
+    
   </ul>
 </query-editor-row>
