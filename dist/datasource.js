@@ -31,7 +31,7 @@ System.register([], function (_export, _context) {
       }();
 
       _export('GenericDatasource', GenericDatasource = function () {
-        function GenericDatasource(instanceSettings, $q, backendSrv) {
+        function GenericDatasource(instanceSettings, $q, backendSrv, templateSrv) {
           _classCallCheck(this, GenericDatasource);
 
           this.type = instanceSettings.type;
@@ -39,6 +39,7 @@ System.register([], function (_export, _context) {
           this.name = instanceSettings.name;
           this.q = $q;
           this.backendSrv = backendSrv;
+          this.templateSrv = templateSrv;
         }
 
         // Called once per panel (graph)
@@ -86,9 +87,11 @@ System.register([], function (_export, _context) {
         }, {
           key: 'metricFindQuery',
           value: function metricFindQuery(options) {
+            // replace templated variables
+            var templatedFilter = this.templateSrv.replace(options.filter, options.scopedVars);
             return this.backendSrv.datasourceRequest({
               url: this.url + '/search',
-              data: options,
+              data: templatedFilter,
               method: 'POST',
               headers: { 'Content-Type': 'application/json' }
             }).then(this.mapToTextValue);
