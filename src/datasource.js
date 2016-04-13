@@ -52,7 +52,11 @@ export class GenericDatasource {
   // Required for templating
   metricFindQuery(options) {
   	// replace templated variables
-    var templatedFilter = this.templateSrv.replace(options.filter, options.scopedVars);
+    var templatedFilter = null;
+    if (_.isString(options))
+        templatedFilter = options;
+    else
+        templatedFilter = this.templateSrv.replace(options.filter, options.scopedVars);
     return this.backendSrv.datasourceRequest({
       url: this.url + '/search',
       data: templatedFilter,
