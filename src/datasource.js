@@ -1,3 +1,5 @@
+import _ from "lodash";
+
 export class GenericDatasource {
 
   constructor(instanceSettings, $q, backendSrv) {
