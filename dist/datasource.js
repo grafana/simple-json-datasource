@@ -1,7 +1,7 @@
 'use strict';
 
-System.register([], function (_export, _context) {
-  var _createClass, GenericDatasource;
+System.register(['lodash'], function (_export, _context) {
+  var _, _createClass, GenericDatasource;
 
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
@@ -10,7 +10,9 @@ System.register([], function (_export, _context) {
   }
 
   return {
-    setters: [],
+    setters: [function (_lodash) {
+      _ = _lodash.default;
+    }],
     execute: function () {
       _createClass = function () {
         function defineProperties(target, props) {

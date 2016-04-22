@@ -1,4 +1,4 @@
-#Simple JSON Datasource - a generic backend datasource
+## Simple JSON Datasource - a generic backend datasource
 
 More documentation about datasource plugins can be found in the [Docs](https://github.com/grafana/grafana/blob/master/docs/sources/plugins/datasources.md)
 
@@ -15,19 +15,54 @@ Your backend needs to implement 4 urls:
 https://gist.github.com/bergquist/bc4aa5baface3cffa109
 https://gist.github.com/tral/1fe649455fe2de9fb8fe
 
-### Installation
+### Annotation API
 
-Use the new grafana-cli tool to install the simple json datasource from the commandline:
+The annotation request from the Simple JSON Datasource is a `POST` request to
+the `/annotations` endpoint in your datasource. The JSON request body looks like this:
+``` javascript
+{
+  "range": {
+    "from": "2016-04-15T13:44:39.070Z",
+    "to": "2016-04-15T14:44:39.070Z"
+  },
+  "rangeRaw": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "annotation": {
+    "name": "deploy",
+    "datasource": "Simple JSON Datasource",
+    "iconColor": "rgba(255, 96, 96, 1)",
+    "enable": true,
+    "query": "#deploy"
+  }
+}
+```
+
+Grafana expects a response containing an array of annotation objects in the
+following format:
+
+``` javascript
+[
+  {
+    annotation: annotation, // The original annotation sent from Grafana.
+    time: time, // Time since UNIX Epoch in milliseconds. (required)
+    title: title, // The title for the annotation tooltip. (required)
+    tags: tags, // Tags for the annotation. (optional)
+    text: text // Text for the annotation. (optional)
+  }
+]
+```
+
+Note: If the datasource is configured to connect directly to the backend, you
+also need to implement an `OPTIONS` endpoint at `/annotations` that responds
+with the correct `CORS` headers:
 
 ```
-grafana-cli plugins install grafana-simple-json-datasource
+Access-Control-Allow-Headers:accept, content-type
+Access-Control-Allow-Methods:POST
+Access-Control-Allow-Origin:*
 ```
-
-The plugin will be installed into your grafana plugins directory; the default is /var/lib/grafana/plugins if you installed the grafana package.
-
-More instructions on the cli tool can be found [here](http://docs.grafana.org/v3.0/plugins/installation/).
-
-You need the lastest grafana build for Grafana 3.0 to enable plugin support. You can get it here : http://grafana.org/download/builds.html
 
 ### If using Grafana 2.6
 NOTE!
