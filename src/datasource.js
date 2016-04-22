@@ -1,11 +1,12 @@
 export class GenericDatasource {
 
-  constructor(instanceSettings, $q, backendSrv) {
+  constructor(instanceSettings, $q, backendSrv, templateSrv) {
     this.type = instanceSettings.type;
     this.url = instanceSettings.url;
     this.name = instanceSettings.name;
     this.q = $q;
     this.backendSrv = backendSrv;
+    this.templateSrv = templateSrv;
   }
 
   // Called once per panel (graph)
@@ -25,7 +26,7 @@ export class GenericDatasource {
   }
 
   // Required
-  // Used for testing datasource in datasource configuration pange
+  // Used for testing datasource in datasource configuration pane
   testDatasource() {
     return this.backendSrv.datasourceRequest({
       url: this.url + '/',
@@ -50,9 +51,15 @@ export class GenericDatasource {
   // Optional
   // Required for templating
   metricFindQuery(options) {
+  	// replace templated variables
+    var templatedFilter = null;
+    if (_.isString(options))
+        templatedFilter = options;
+    else
+        templatedFilter = this.templateSrv.replace(options.filter, options.scopedVars);
     return this.backendSrv.datasourceRequest({
       url: this.url + '/search',
-      data: options,
+      data: templatedFilter,
       method: 'POST',
       headers: { 'Content-Type': 'application/json' }
     }).then(this.mapToTextValue);

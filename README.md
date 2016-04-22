@@ -10,6 +10,10 @@ Your backend needs to implement 4 urls:
  * "/search" Used by the find metric options on the query tab in panels
  * "/query" Should return metrics based on input
  * "/annotations" should return annotations
+ 
+### Using a filter for the /search url
+The optional filter field can be used to pass some data to the remote server in the POST query. The field content is stored *as is* in the POST query
+Template is supported in the filter field.
 
 ### Example backend implementation
 https://gist.github.com/bergquist/bc4aa5baface3cffa109
