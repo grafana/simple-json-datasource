@@ -13,8 +13,14 @@ module.exports = function(grunt) {
       src_to_dist: {
         cwd: 'src',
         expand: true,
-        src: ['**/*', '!**/*.js', '!**/*.scss'],
+        src: ['**/*', '!**/*.js', '!**/*.scss', '!img/*'],
         dest: 'dist'
+      },
+      img_to_dist: {
+        cwd: 'src',
+        expand: true,
+        src: ['img/*'],
+        dest: 'dist/src/'
       },
       pluginDef: {
         expand: true,
@@ -78,5 +84,5 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.registerTask('default', ['clean', 'copy:src_to_dist', 'copy:pluginDef', 'babel', 'mochaTest']);
+  grunt.registerTask('default', ['clean', 'copy:src_to_dist','copy:img_to_dist', 'copy:pluginDef', 'babel', 'mochaTest']);
 };
