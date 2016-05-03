@@ -6,10 +6,10 @@ This also serves as a living example implementation of a datasource.
 
 Your backend needs to implement 4 urls:
 
- * `/` should return 200 ok. Used for "Test connection" on the datasource config page.
- * `/search` used by the find metric options on the query tab in panels.
- * `/query` should return metrics based on input.
- * `/annotations` should return annotations.
+ * / should return 200 ok. Used for "Test connection" on the datasource config page.
+ * /search used by the find metric options on the query tab in panels.
+ * /query should return metrics based on input.
+ * /annotations should return annotations.
 
 ### Example backend implementations
 - https://gist.github.com/bergquist/bc4aa5baface3cffa109
@@ -17,8 +17,8 @@ Your backend needs to implement 4 urls:
 
 ### Annotation API
 
-The annotation request from the Simple JSON Datasource is a `POST` request to
-the `/annotations` endpoint in your datasource. The JSON request body looks like this:
+The annotation request from the Simple JSON Datasource is a POST request to
+the /annotations endpoint in your datasource. The JSON request body looks like this:
 ``` javascript
 {
   "range": {
@@ -55,8 +55,8 @@ following format:
 ```
 
 Note: If the datasource is configured to connect directly to the backend, you
-also need to implement an `OPTIONS` endpoint at `/annotations` that responds
-with the correct `CORS` headers:
+also need to implement an OPTIONS endpoint at /annotations that responds
+with the correct CORS headers:
 
 ```
 Access-Control-Allow-Headers:accept, content-type
