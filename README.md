@@ -12,7 +12,7 @@ Your backend needs to implement 4 urls:
  * /annotations should return annotations.
 
 ### Example backend implementations
-- https://gist.github.com/bergquist/bc4aa5baface3cffa109
+- https://github.com/bergquist/fake-simple-json-datasource
 - https://gist.github.com/tral/1fe649455fe2de9fb8fe
 
 ### Annotation API
