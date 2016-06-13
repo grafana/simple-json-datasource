@@ -2,12 +2,13 @@ import _ from "lodash";
 
 export class GenericDatasource {
 
-  constructor(instanceSettings, $q, backendSrv) {
+  constructor(instanceSettings, $q, backendSrv, templateSrv) {
     this.type = instanceSettings.type;
     this.url = instanceSettings.url;
     this.name = instanceSettings.name;
     this.q = $q;
     this.backendSrv = backendSrv;
+    this.templateSrv = templateSrv;
   }
 
   // Called once per panel (graph)
@@ -71,6 +72,15 @@ export class GenericDatasource {
     options.targets = _.filter(options.targets, target => {
       return target.target !== 'select metric';
     });
+
+    var targets = _.map(options.targets, target => {
+      return {
+        target: this.templateSrv.replace(target.target),
+        refId: target.refId
+      };
+    });
+
+    options.targets = targets;
 
     return options;
   }

@@ -33,7 +33,7 @@ System.register(['lodash'], function (_export, _context) {
       }();
 
       _export('GenericDatasource', GenericDatasource = function () {
-        function GenericDatasource(instanceSettings, $q, backendSrv) {
+        function GenericDatasource(instanceSettings, $q, backendSrv, templateSrv) {
           _classCallCheck(this, GenericDatasource);
 
           this.type = instanceSettings.type;
@@ -41,6 +41,7 @@ System.register(['lodash'], function (_export, _context) {
           this.name = instanceSettings.name;
           this.q = $q;
           this.backendSrv = backendSrv;
+          this.templateSrv = templateSrv;
         }
 
         // Called once per panel (graph)
@@ -105,10 +106,21 @@ System.register(['lodash'], function (_export, _context) {
         }, {
           key: 'buildQueryParameters',
           value: function buildQueryParameters(options) {
+            var _this = this;
+
             //remove placeholder targets
             options.targets = _.filter(options.targets, function (target) {
               return target.target !== 'select metric';
             });
+
+            var targets = _.map(options.targets, function (target) {
+              return {
+                target: _this.templateSrv.replace(target.target),
+                refId: target.refId
+              };
+            });
+
+            options.targets = targets;
 
             return options;
           }
