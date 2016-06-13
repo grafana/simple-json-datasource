@@ -78,6 +78,8 @@ System.register(['lodash'], function (_export, _context) {
         }, {
           key: 'annotationQuery',
           value: function annotationQuery(options) {
+            options.annotation.query = this.templateSrv.replace(options.annotation.query);
+
             return this.backendSrv.datasourceRequest({
               url: this.url + '/annotations',
               method: 'POST',
