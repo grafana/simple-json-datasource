@@ -78,12 +78,12 @@ System.register(['lodash'], function (_export, _context) {
         }, {
           key: 'annotationQuery',
           value: function annotationQuery(options) {
-            options.annotation.query = this.templateSrv.replace(options.annotation.query);
+            tmpltOptions = this.templateSrv.replace(options.annotation.query);
 
             return this.backendSrv.datasourceRequest({
               url: this.url + '/annotations',
               method: 'POST',
-              data: options
+              data: tmpltOptions
             }).then(function (result) {
               return result.data;
             });
