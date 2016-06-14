@@ -41,12 +41,12 @@ export class GenericDatasource {
   }
 
   annotationQuery(options) {
-    options.annotation.query = this.templateSrv.replace(options.annotation.query);
+    tmpltOptions = this.templateSrv.replace(options.annotation.query);
 
     return this.backendSrv.datasourceRequest({
       url: this.url + '/annotations',
       method: 'POST',
-      data: options
+      data: tmpltOptions
     }).then(result => {
       return result.data;
     });
