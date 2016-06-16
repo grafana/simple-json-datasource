@@ -78,12 +78,23 @@ System.register(['lodash'], function (_export, _context) {
         }, {
           key: 'annotationQuery',
           value: function annotationQuery(options) {
-            tmpltOptions = this.templateSrv.replace(options.annotation.query);
+            var query = this.templateSrv.replace(options.annotation.query, {}, 'glob');
+            var annotationQuery = {
+              range: options.range,
+              annotation: {
+                name: options.annotation.name,
+                datasource: options.annotation.datasource,
+                enable: options.annotation.enable,
+                iconColor: options.annotation.iconColor,
+                query: query
+              },
+              rangeRaw: options.rangeRaw
+            };
 
             return this.backendSrv.datasourceRequest({
               url: this.url + '/annotations',
               method: 'POST',
-              data: tmpltOptions
+              data: annotationQuery
             }).then(function (result) {
               return result.data;
             });
