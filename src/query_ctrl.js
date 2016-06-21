@@ -17,6 +17,10 @@ export class GenericDatasourceQueryCtrl extends QueryCtrl {
       // Options have to be transformed by uiSegmentSrv to be usable by metric-segment-model directive
   }
 
+  toggleEditorMode() {
+    this.target.customQuery = !this.target.customQuery;
+  }
+
   onChangeInternal() {
     this.panelCtrl.refresh(); // Asks the panel to refresh data.
   }
