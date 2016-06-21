@@ -14,7 +14,7 @@ describe('GenericDatasource', function() {
 
     it('should return an empty array when no targets are set', function(done) {
         ctx.ds.query({targets: []}).then(function(result) {
-            expect(result).to.have.length(0);
+            expect(result.data).to.have.length(0);
             done();
         });
     });
