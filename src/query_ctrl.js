@@ -18,7 +18,7 @@ export class GenericDatasourceQueryCtrl extends QueryCtrl {
   }
 
   toggleEditorMode() {
-    this.target.customQuery = !this.target.customQuery;
+    this.target.rawQuery = !this.target.rawQuery;
   }
 
   onChangeInternal() {
