@@ -67,9 +67,16 @@ export class GenericDatasource {
   // Optional
   // Required for templating
   metricFindQuery(options) {
+    var interpolated;
+    try {
+      interpolated = this.templateSrv.replace(options, null, 'regex');
+    } catch (err) {
+      return this.$q.reject(err);
+    }
+
     return this.backendSrv.datasourceRequest({
       url: this.url + '/search',
-      data: options,
+      data: interpolated,
       method: 'POST',
       headers: { 'Content-Type': 'application/json' }
     }).then(this.mapToTextValue);
