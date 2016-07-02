@@ -1,6 +1,8 @@
 'use strict';
 
 System.register(['app/plugins/sdk', './css/query-editor.css!'], function (_export, _context) {
+  "use strict";
+
   var QueryCtrl, _createClass, GenericDatasourceQueryCtrl;
 
   function _classCallCheck(instance, Constructor) {
@@ -75,6 +77,11 @@ System.register(['app/plugins/sdk', './css/query-editor.css!'], function (_expor
           value: function getOptions() {
             return this.datasource.metricFindQuery(this.target).then(this.uiSegmentSrv.transformToSegments(false));
             // Options have to be transformed by uiSegmentSrv to be usable by metric-segment-model directive
+          }
+        }, {
+          key: 'toggleEditorMode',
+          value: function toggleEditorMode() {
+            this.target.rawQuery = !this.target.rawQuery;
           }
         }, {
           key: 'onChangeInternal',

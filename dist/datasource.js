@@ -1,6 +1,8 @@
 'use strict';
 
 System.register(['lodash'], function (_export, _context) {
+  "use strict";
+
   var _, _createClass, GenericDatasource;
 
   function _classCallCheck(instance, Constructor) {
@@ -51,9 +53,12 @@ System.register(['lodash'], function (_export, _context) {
           key: 'query',
           value: function query(options) {
             var query = this.buildQueryParameters(options);
+            query.targets = query.targets.filter(function (t) {
+              return !t.hide;
+            });
 
             if (query.targets.length <= 0) {
-              return this.q.when([]);
+              return this.q.when({ data: [] });
             }
 
             return this.backendSrv.datasourceRequest({
@@ -129,7 +134,8 @@ System.register(['lodash'], function (_export, _context) {
             var targets = _.map(options.targets, function (target) {
               return {
                 target: _this.templateSrv.replace(target.target),
-                refId: target.refId
+                refId: target.refId,
+                hide: target.hide
               };
             });
 

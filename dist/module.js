@@ -1,6 +1,8 @@
 'use strict';
 
 System.register(['./datasource', './query_ctrl'], function (_export, _context) {
+  "use strict";
+
   var GenericDatasource, GenericDatasourceQueryCtrl, GenericConfigCtrl, GenericQueryOptionsCtrl, GenericAnnotationsQueryCtrl;
 
   function _classCallCheck(instance, Constructor) {
