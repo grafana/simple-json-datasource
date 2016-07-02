@@ -1,7 +1,12 @@
-<query-editor-row query-ctrl="ctrl" class="generic-datasource-query-row">
-	<div class="gf-form-inline">
-		<div class="gf-form">
-      <metric-segment-model property="ctrl.target.target" get-options="ctrl.getOptions()" on-change="ctrl.onChangeInternal()" css-class="tight-form-item-xxlarge"></metric-segment-model>
-		</div>
-	</div>
+<query-editor-row query-ctrl="ctrl" class="generic-datasource-query-row" has-text-edit-mode="true">
+  <div class="gf-form" ng-if="ctrl.target.rawQuery">
+    <textarea class="gf-form-input" rows="5" ng-model="ctrl.target.target" spellcheck="false" ng-blur="ctrl.onChangeInternal()" />
+  </div>
+
+  <div ng-if="!ctrl.target.rawQuery">
+    <div class="gf-form">
+      <metric-segment-model property="ctrl.target.target" get-options="ctrl.getOptions()" on-change="ctrl.onChangeInternal()"
+        css-class="tight-form-item-xxlarge"></metric-segment-model>
+    </div>
+  </div>
 </query-editor-row>

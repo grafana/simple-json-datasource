@@ -14,9 +14,10 @@ export class GenericDatasource {
   // Called once per panel (graph)
   query(options) {
     var query = this.buildQueryParameters(options);
+    query.targets = query.targets.filter(t => !t.hide);
 
     if (query.targets.length <= 0) {
-      return this.q.when([]);
+      return this.q.when({data: []});
     }
 
     return this.backendSrv.datasourceRequest({
@@ -89,7 +90,8 @@ export class GenericDatasource {
     var targets = _.map(options.targets, target => {
       return {
         target: this.templateSrv.replace(target.target),
-        refId: target.refId
+        refId: target.refId,
+        hide: target.hide
       };
     });
 
