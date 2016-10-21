@@ -64,7 +64,7 @@ System.register(['app/plugins/sdk', './css/query-editor.css!'], function (_expor
         function GenericDatasourceQueryCtrl($scope, $injector, uiSegmentSrv) {
           _classCallCheck(this, GenericDatasourceQueryCtrl);
 
-          var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(GenericDatasourceQueryCtrl).call(this, $scope, $injector));
+          var _this = _possibleConstructorReturn(this, (GenericDatasourceQueryCtrl.__proto__ || Object.getPrototypeOf(GenericDatasourceQueryCtrl)).call(this, $scope, $injector));
 
           _this.scope = $scope;
           _this.uiSegmentSrv = uiSegmentSrv;
