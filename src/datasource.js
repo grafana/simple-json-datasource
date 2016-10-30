@@ -64,15 +64,10 @@ export class GenericDatasource {
     });
   }
 
-  // Optional
-  // Required for templating
   metricFindQuery(options) {
-    var interpolated;
-    try {
-      interpolated = this.templateSrv.replace(options, null, 'regex');
-    } catch (err) {
-      return this.$q.reject(err);
-    }
+    var interpolated = {
+      target: this.templateSrv.replace(options.target, null, 'regex')
+    };
 
     return this.backendSrv.datasourceRequest({
       url: this.url + '/search',

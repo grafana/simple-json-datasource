@@ -107,9 +107,13 @@ System.register(['lodash'], function (_export, _context) {
         }, {
           key: 'metricFindQuery',
           value: function metricFindQuery(options) {
+            var interpolated = {
+              target: this.templateSrv.replace(options.target, null, 'regex')
+            };
+
             return this.backendSrv.datasourceRequest({
               url: this.url + '/search',
-              data: options,
+              data: interpolated,
               method: 'POST',
               headers: { 'Content-Type': 'application/json' }
             }).then(this.mapToTextValue);
