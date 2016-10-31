@@ -13,7 +13,6 @@ Your backend needs to implement 4 urls:
 
 ### Example backend implementations
 - https://github.com/bergquist/fake-simple-json-datasource
-- https://gist.github.com/tral/1fe649455fe2de9fb8fe
 
 ### Query API
 
@@ -111,6 +110,18 @@ with the correct CORS headers:
 Access-Control-Allow-Headers:accept, content-type
 Access-Control-Allow-Methods:POST
 Access-Control-Allow-Origin:*
+```
+
+### Search API
+
+Example request
+``` javascript
+{ target: 'upper_50' }
+```
+
+Example response
+``` javascript
+["upper_25","upper_50","upper_75","upper_90","upper_95"]
 ```
 
 ### Changelog
