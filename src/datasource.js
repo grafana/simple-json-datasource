@@ -90,7 +90,8 @@ export class GenericDatasource {
       return {
         target: this.templateSrv.replace(target.target),
         refId: target.refId,
-        hide: target.hide
+        hide: target.hide,
+        type: target.type || 'timeserie'
       };
     });
 

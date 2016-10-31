@@ -136,7 +136,8 @@ System.register(['lodash'], function (_export, _context) {
               return {
                 target: _this.templateSrv.replace(target.target),
                 refId: target.refId,
-                hide: target.hide
+                hide: target.hide,
+                type: target.type
               };
             });
 
