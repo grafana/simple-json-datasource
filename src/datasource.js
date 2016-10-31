@@ -11,7 +11,6 @@ export class GenericDatasource {
     this.templateSrv = templateSrv;
   }
 
-  // Called once per panel (graph)
   query(options) {
     var query = this.buildQueryParameters(options);
     query.targets = query.targets.filter(t => !t.hide);
@@ -28,8 +27,6 @@ export class GenericDatasource {
     });
   }
 
-  // Required
-  // Used for testing datasource in datasource configuration pange
   testDatasource() {
     return this.backendSrv.datasourceRequest({
       url: this.url + '/',
