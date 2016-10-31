@@ -64,6 +64,16 @@ Access-Control-Allow-Methods:POST
 Access-Control-Allow-Origin:*
 ```
 
+### Changelog
+
+1.2.3
+ - Allow nested templates in find metric query. #23
+
+1.2.2
+ - Dont execute hidden queries
+ - Template support for metrics queries
+ - Template support for annotation queries
+
 ### If using Grafana 2.6
 NOTE!
 for grafana 2.6 please use [this version](https://github.com/grafana/simple-json-datasource/commit/b78720f6e00c115203d8f4c0e81ccd3c16001f94)

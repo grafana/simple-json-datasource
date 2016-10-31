@@ -46,9 +46,6 @@ System.register(['lodash'], function (_export, _context) {
           this.templateSrv = templateSrv;
         }
 
-        // Called once per panel (graph)
-
-
         _createClass(GenericDatasource, [{
           key: 'query',
           value: function query(options) {
