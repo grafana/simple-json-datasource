@@ -15,6 +15,55 @@ Your backend needs to implement 4 urls:
 - https://github.com/bergquist/fake-simple-json-datasource
 - https://gist.github.com/tral/1fe649455fe2de9fb8fe
 
+### Query API
+
+Example request
+``` javascript
+{
+  "panelId": 1,
+  "range": {
+    "from": "2016-10-31T06:33:44.866Z",
+    "to": "2016-10-31T12:33:44.866Z",
+    "raw": {
+      "from": "now-6h",
+      "to": "now"
+    }
+  },
+  "rangeRaw": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "interval": "30s",
+  "intervalMs": 30000,
+  "targets": [
+     { "target": "upper_50", refId: "A" },
+     { "target": "upper_75", refId: "B" }
+  ],
+  "format": "json",
+  "maxDataPoints": 550
+}
+```
+
+Example response
+``` javascript
+[
+  {
+    "target":"upper_75", // The field being queried for
+    "datapoints":[
+      [622,1450754160000],  // Metric value as a float , unixtimestamp in milliseconds
+      [365,1450754220000]
+    ]
+  },
+  {
+    "target":"upper_90",
+    "datapoints":[
+      [861,1450754160000],
+      [767,1450754220000]
+    ]
+  }
+]
+```
+
 ### Annotation API
 
 The annotation request from the Simple JSON Datasource is a POST request to
