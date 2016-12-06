@@ -77,7 +77,8 @@ export class GenericDatasource {
 
   mapToTextValue(result) {
     return _.map(result.data, (d, i) => {
-      return { text: d, value: i};
+      if (d && d.text && d.value) return { text: d.text, value: d.value }
+      return { text: d, value: i };
     });
   }
 

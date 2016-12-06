@@ -120,6 +120,7 @@ System.register(['lodash'], function (_export, _context) {
           key: 'mapToTextValue',
           value: function mapToTextValue(result) {
             return _.map(result.data, function (d, i) {
+              if (d && d.text && d.value) return { text: d.text, value: d.value }
               return { text: d, value: i };
             });
           }
