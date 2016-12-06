@@ -62,8 +62,9 @@ export class GenericDatasource {
   }
 
   metricFindQuery(options) {
+    var target = typeof (options) == "string" ? options : options.target;
     var interpolated = {
-      target: this.templateSrv.replace(options.target, null, 'regex')
+        target: this.templateSrv.replace(target, null, 'regex')
     };
 
     return this.backendSrv.datasourceRequest({
