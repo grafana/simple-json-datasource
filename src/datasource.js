@@ -62,7 +62,7 @@ export class GenericDatasource {
   }
 
   metricFindQuery(options) {
-    var target = typeof (options) == "string" ? options : options.target;
+    var target = typeof (options) === "string" ? options : options.target;
     var interpolated = {
         target: this.templateSrv.replace(target, null, 'regex')
     };
@@ -77,7 +77,9 @@ export class GenericDatasource {
 
   mapToTextValue(result) {
     return _.map(result.data, (d, i) => {
-      if (d && d.text && d.value) return { text: d.text, value: d.value }
+      if (d && d.text && d.value) {
+        return { text: d.text, value: d.value };
+      }
       return { text: d, value: i };
     });
   }
