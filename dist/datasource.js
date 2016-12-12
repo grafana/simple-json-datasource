@@ -104,9 +104,9 @@ System.register(['lodash'], function (_export, _context) {
         }, {
           key: 'metricFindQuery',
           value: function metricFindQuery(options) {
-            var target = typeof (options) == "string" ? options : options.target;
+            var target = typeof options === "string" ? options : options.target;
             var interpolated = {
-                target: this.templateSrv.replace(target, null, 'regex')
+              target: this.templateSrv.replace(target, null, 'regex')
             };
 
             return this.backendSrv.datasourceRequest({
@@ -120,7 +120,9 @@ System.register(['lodash'], function (_export, _context) {
           key: 'mapToTextValue',
           value: function mapToTextValue(result) {
             return _.map(result.data, function (d, i) {
-              if (d && d.text && d.value) return { text: d.text, value: d.value }
+              if (d && d.text && d.value) {
+                return { text: d.text, value: d.value };
+              }
               return { text: d, value: i };
             });
           }
@@ -139,7 +141,7 @@ System.register(['lodash'], function (_export, _context) {
                 target: _this.templateSrv.replace(target.target),
                 refId: target.refId,
                 hide: target.hide,
-                type: target.type
+                type: target.type || 'timeserie'
               };
             });
 

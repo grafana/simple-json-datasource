@@ -6,10 +6,10 @@ This also serves as a living example implementation of a datasource.
 
 Your backend needs to implement 4 urls:
 
- * / should return 200 ok. Used for "Test connection" on the datasource config page.
- * /search used by the find metric options on the query tab in panels.
- * /query should return metrics based on input.
- * /annotations should return annotations.
+ * `/` should return 200 ok. Used for "Test connection" on the datasource config page.
+ * `/search` used by the find metric options on the query tab in panels.
+ * `/query` should return metrics based on input.
+ * `/annotations` should return annotations.
 
 ### Example backend implementations
 - https://github.com/bergquist/fake-simple-json-datasource
