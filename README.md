@@ -119,12 +119,22 @@ Example request
 { target: 'upper_50' }
 ```
 
-Example response
+The search api can either return an array or map.
+
+Example array response
 ``` javascript
 ["upper_25","upper_50","upper_75","upper_90","upper_95"]
 ```
 
+Example map response
+``` javascript
+[ { "text" :"upper_25", "value": 1}, { "text" :"upper_75", "value": 2} ]
+```
+
 ### Changelog
+
+1.2.4
+ - Add support returning sets in the search endpoint
 
 1.2.3
  - Allow nested templates in find metric query. #23
