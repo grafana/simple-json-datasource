@@ -13,25 +13,19 @@ module.exports = function(grunt) {
       src_to_dist: {
         cwd: 'src',
         expand: true,
-        src: ['**/*', '!**/*.js', '!**/*.scss', '!img/*', '!src/plugin.json'],
+        src: ['**/*', '!**/*.js', '!**/*.scss'],
         dest: 'dist'
-      },
-      img_to_dist: {
-        cwd: 'src',
-        expand: true,
-        src: ['img/*'],
-        dest: 'dist/src/'
       },
       pluginDef: {
         expand: true,
-        src: [ 'plugin.json', 'README.md' ],
+        src: ['README.md'],
         dest: 'dist'
       }
     },
 
     watch: {
       rebuild_all: {
-        files: ['src/**/*', 'plugin.json'],
+        files: ['src/**/*'],
         tasks: ['default'],
         options: {spawn: false}
       }
@@ -84,5 +78,5 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.registerTask('default', ['clean', 'copy:src_to_dist','copy:img_to_dist', 'copy:pluginDef', 'babel', 'mochaTest']);
+  grunt.registerTask('default', ['clean', 'copy:src_to_dist', 'copy:pluginDef', 'babel', 'mochaTest']);
 };
