@@ -65,11 +65,11 @@ describe('GenericDatasource', function() {
         ctx.ds.metricFindQuery({target: null}).then(function(result) {
             expect(result).to.have.length(3);
             expect(result[0].text).to.equal('metric_0');
-            expect(result[0].value).to.equal(0);
+            expect(result[0].value).to.equal('metric_0');
             expect(result[1].text).to.equal('metric_1');
-            expect(result[1].value).to.equal(1);
+            expect(result[1].value).to.equal('metric_1');
             expect(result[2].text).to.equal('metric_2');
-            expect(result[2].value).to.equal(2);
+            expect(result[2].value).to.equal('metric_2');
             done();
         });
     });
@@ -92,11 +92,11 @@ describe('GenericDatasource', function() {
         ctx.ds.metricFindQuery({target: 'search'}).then(function(result) {
             expect(result).to.have.length(3);
             expect(result[0].text).to.equal('search_0');
-            expect(result[0].value).to.equal(0);
+            expect(result[0].value).to.equal('search_0');
             expect(result[1].text).to.equal('search_1');
-            expect(result[1].value).to.equal(1);
+            expect(result[1].value).to.equal('search_1');
             expect(result[2].text).to.equal('search_2');
-            expect(result[2].value).to.equal(2);
+            expect(result[2].value).to.equal('search_2');
             done();
         });
     });
@@ -120,11 +120,11 @@ describe('GenericDatasource', function() {
         ctx.ds.metricFindQuery({target: ''}).then(function(result) {
             expect(result).to.have.length(3);
             expect(result[0].text).to.equal('metric_0');
-            expect(result[0].value).to.equal(0);
+            expect(result[0].value).to.equal('metric_0');
             expect(result[1].text).to.equal('metric_1');
-            expect(result[1].value).to.equal(1);
+            expect(result[1].value).to.equal('metric_1');
             expect(result[2].text).to.equal('metric_2');
-            expect(result[2].value).to.equal(2);
+            expect(result[2].value).to.equal('metric_2');
             done();
         });
     });
@@ -148,11 +148,11 @@ describe('GenericDatasource', function() {
         ctx.ds.metricFindQuery({}).then(function(result) {
             expect(result).to.have.length(3);
             expect(result[0].text).to.equal('metric_0');
-            expect(result[0].value).to.equal(0);
+            expect(result[0].value).to.equal('metric_0');
             expect(result[1].text).to.equal('metric_1');
-            expect(result[1].value).to.equal(1);
+            expect(result[1].value).to.equal('metric_1');
             expect(result[2].text).to.equal('metric_2');
-            expect(result[2].value).to.equal(2);
+            expect(result[2].value).to.equal('metric_2');
             done();
         });
     });
@@ -185,25 +185,25 @@ describe('GenericDatasource', function() {
         ctx.ds.metricFindQuery('search').then(function(result) {
             expect(result).to.have.length(3);
             expect(result[0].text).to.equal('search_0');
-            expect(result[0].value).to.equal(0);
+            expect(result[0].value).to.equal('search_0');
             expect(result[1].text).to.equal('search_1');
-            expect(result[1].value).to.equal(1);
+            expect(result[1].value).to.equal('search_1');
             expect(result[2].text).to.equal('search_2');
-            expect(result[2].value).to.equal(2);
+            expect(result[2].value).to.equal('search_2');
             done();
         });
     });
 
-    it ('should return data as text and index as value', function(done) {
+    it ('should return data as text and as value', function(done) {
         var result = ctx.ds.mapToTextValue({data: ["zero", "one", "two"]});
 
         expect(result).to.have.length(3);
         expect(result[0].text).to.equal('zero');
-        expect(result[0].value).to.equal(0);
+        expect(result[0].value).to.equal('zero');
         expect(result[1].text).to.equal('one');
-        expect(result[1].value).to.equal(1);
+        expect(result[1].value).to.equal('one');
         expect(result[2].text).to.equal('two');
-        expect(result[2].value).to.equal(2);
+        expect(result[2].value).to.equal('two');
         done();
     });
 
