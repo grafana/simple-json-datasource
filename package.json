@@ -5,33 +5,39 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "./node_modules/grunt-cli/bin/grunt",
+    "test": "./node_modules/grunt-cli/bin/grunt mochaTest"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/raintank/kentik-app-poc.git"
+    "url": "git+https://github.com/grafana/simple-json-datasource.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/raintank/kentik-app-poc/issues"
+    "url": "https://github.com/grafana/simple-json-datasource/issues"
   },
+  "engines": {
+    "node": "6.10.0"
+  },
+  "engineStrict": true,
   "devDependencies": {
-    "grunt": "~0.4.5",
     "babel": "~6.5.1",
+    "chai": "~3.5.0",
+    "grunt": "~0.4.5",
     "grunt-babel": "~6.0.0",
+    "grunt-cli": "^1.2.0",
+    "grunt-contrib-clean": "~0.6.0",
     "grunt-contrib-copy": "~0.8.2",
-    "grunt-contrib-watch": "^0.6.1",
     "grunt-contrib-uglify": "~0.11.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-execute": "~0.2.2",
     "grunt-mocha-test": "~0.12.7",
     "grunt-systemjs-builder": "^0.2.5",
-    "load-grunt-tasks": "~3.2.0",
-    "grunt-execute": "~0.2.2",
-    "grunt-contrib-clean": "~0.6.0",
-    "prunk": "~1.2.1",
     "jsdom": "~3.1.2",
-    "q": "~1.4.1",
-    "chai": "~3.5.0"
+    "load-grunt-tasks": "~3.2.0",
+    "prunk": "~1.2.1",
+    "q": "~1.4.1"
   },
   "dependencies": {
     "babel-plugin-transform-es2015-for-of": "^6.6.0",
@@ -40,5 +46,5 @@
     "lodash": "~4.0.0",
     "mocha": "^2.4.5"
   },
-  "homepage": "https://github.com/raintank/kentik-app-poc#readme"
+  "homepage": "https://github.com/grafana/simple-json-datasource#readme"
 }

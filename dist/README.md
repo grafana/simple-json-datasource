@@ -131,6 +131,14 @@ Example map response
 [ { "text" :"upper_25", "value": 1}, { "text" :"upper_75", "value": 2} ]
 ```
 
+### Dev setup
+
+This plugin requires node 6.10.0
+
+`npm install -g yarn`
+`yarn install`
+`npm run build`
+
 ### Changelog
 
 1.2.4
