@@ -1,6 +1,6 @@
 ## Simple JSON Datasource - a generic backend datasource
 
-More documentation about datasource plugins can be found in the [Docs](https://github.com/grafana/grafana/blob/master/docs/sources/plugins/datasources.md).
+More documentation about datasource plugins can be found in the [Docs](https://github.com/grafana/grafana/blob/master/docs/sources/plugins/developing/datasources.md).
 
 This also serves as a living example implementation of a datasource.
 
