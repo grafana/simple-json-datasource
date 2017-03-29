@@ -93,7 +93,7 @@ export class GenericDatasource {
 
     var targets = _.map(options.targets, target => {
       return {
-        target: this.templateSrv.replace(target.target, options.scopedVars),
+        target: this.templateSrv.replace(target.target, options.scopedVars, 'regex'),
         refId: target.refId,
         hide: target.hide,
         type: target.type || 'timeserie'
