@@ -103,10 +103,9 @@ System.register(['lodash'], function (_export, _context) {
           }
         }, {
           key: 'metricFindQuery',
-          value: function metricFindQuery(options) {
-            var target = typeof options === "string" ? options : options.target;
+          value: function metricFindQuery(query) {
             var interpolated = {
-              target: this.templateSrv.replace(target, null, 'regex')
+              target: this.templateSrv.replace(query, null, 'regex')
             };
 
             return this.backendSrv.datasourceRequest({

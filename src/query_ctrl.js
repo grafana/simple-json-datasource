@@ -12,10 +12,10 @@ export class GenericDatasourceQueryCtrl extends QueryCtrl {
     this.target.type = this.target.type || 'timeserie';
   }
 
-  getOptions() {
-    return this.datasource.metricFindQuery(this.target)
+  getOptions(query) {
+    // Options have to be transformed by uiSegmentSrv to be usable by metric-segment-model directive
+    return this.datasource.metricFindQuery(query || '')
       .then(this.uiSegmentSrv.transformToSegments(false));
-      // Options have to be transformed by uiSegmentSrv to be usable by metric-segment-model directive
   }
 
   toggleEditorMode() {

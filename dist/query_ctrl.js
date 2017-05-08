@@ -75,9 +75,9 @@ System.register(['app/plugins/sdk', './css/query-editor.css!'], function (_expor
 
         _createClass(GenericDatasourceQueryCtrl, [{
           key: 'getOptions',
-          value: function getOptions() {
-            return this.datasource.metricFindQuery(this.target).then(this.uiSegmentSrv.transformToSegments(false));
+          value: function getOptions(query) {
             // Options have to be transformed by uiSegmentSrv to be usable by metric-segment-model directive
+            return this.datasource.metricFindQuery(query || '').then(this.uiSegmentSrv.transformToSegments(false));
           }
         }, {
           key: 'toggleEditorMode',

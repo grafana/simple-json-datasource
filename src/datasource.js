@@ -61,10 +61,9 @@ export class GenericDatasource {
     });
   }
 
-  metricFindQuery(options) {
-    var target = typeof (options) === "string" ? options : options.target;
+  metricFindQuery(query) {
     var interpolated = {
-        target: this.templateSrv.replace(target, null, 'regex')
+      target: this.templateSrv.replace(query, null, 'regex')
     };
 
     return this.backendSrv.datasourceRequest({
