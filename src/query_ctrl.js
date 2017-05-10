@@ -10,6 +10,7 @@ export class GenericDatasourceQueryCtrl extends QueryCtrl {
     this.uiSegmentSrv = uiSegmentSrv;
     this.target.target = this.target.target || 'select metric';
     this.target.type = this.target.type || 'timeserie';
+    this.targetSegment = uiSegmentSrv.newSelectMetric();
   }
 
   getOptions(query) {
@@ -28,4 +29,3 @@ export class GenericDatasourceQueryCtrl extends QueryCtrl {
 }
 
 GenericDatasourceQueryCtrl.templateUrl = 'partials/query.editor.html';
-

@@ -16,7 +16,7 @@ Your backend needs to implement 4 urls:
 
 ### Query API
 
-Example request
+Example `timeserie` request
 ``` javascript
 {
   "panelId": 1,
@@ -35,15 +35,15 @@ Example request
   "interval": "30s",
   "intervalMs": 30000,
   "targets": [
-     { "target": "upper_50", refId: "A" },
-     { "target": "upper_75", refId: "B" }
+     { "target": "upper_50", refId: "A", "type": "timeserie" },
+     { "target": "upper_75", refId: "B", "type": "timeserie" }
   ],
   "format": "json",
   "maxDataPoints": 550
 }
 ```
 
-Example response
+Example `timeserie` response
 ``` javascript
 [
   {
@@ -59,6 +59,25 @@ Example response
       [861,1450754160000],
       [767,1450754220000]
     ]
+  }
+]
+```
+
+If the metric selected is `"type": "table"`, an example `table` response:
+```json
+[
+  {
+    "columns":[
+      {"text":"Time","type":"time"},
+      {"text":"Country","type":"string"},
+      {"text":"Number","type":"number"}
+    ],
+    "rows":[
+      [1234567,"SE",123],
+      [1234567,"DE",231],
+      [1234567,"US",321]
+    ],
+    "type":"table"
   }
 ]
 ```

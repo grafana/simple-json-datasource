@@ -70,6 +70,7 @@ System.register(['app/plugins/sdk', './css/query-editor.css!'], function (_expor
           _this.uiSegmentSrv = uiSegmentSrv;
           _this.target.target = _this.target.target || 'select metric';
           _this.target.type = _this.target.type || 'timeserie';
+          _this.targetSegment = uiSegmentSrv.newSelectMetric();
           return _this;
         }
 
