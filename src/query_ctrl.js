@@ -24,6 +24,7 @@ export class GenericDatasourceQueryCtrl extends QueryCtrl {
   }
 
   onChangeInternal() {
+    this.target.target = this.targetSegment.value;
     this.panelCtrl.refresh(); // Asks the panel to refresh data.
   }
 }

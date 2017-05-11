@@ -88,6 +88,7 @@ System.register(['app/plugins/sdk', './css/query-editor.css!'], function (_expor
         }, {
           key: 'onChangeInternal',
           value: function onChangeInternal() {
+            this.target.target = this.targetSegment.value;
             this.panelCtrl.refresh(); // Asks the panel to refresh data.
           }
         }]);
