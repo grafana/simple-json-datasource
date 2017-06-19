@@ -10,6 +10,7 @@ export class GenericDatasourceQueryCtrl extends QueryCtrl {
     this.uiSegmentSrv = uiSegmentSrv;
     this.target.target = this.target.target || 'select metric';
     this.target.type = this.target.type || 'timeserie';
+    this.targetSegment = uiSegmentSrv.newSelectMetric();
   }
 
   getOptions(query) {
@@ -23,9 +24,9 @@ export class GenericDatasourceQueryCtrl extends QueryCtrl {
   }
 
   onChangeInternal() {
+    this.target.target = this.targetSegment.value;
     this.panelCtrl.refresh(); // Asks the panel to refresh data.
   }
 }
 
 GenericDatasourceQueryCtrl.templateUrl = 'partials/query.editor.html';
-
