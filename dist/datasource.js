@@ -44,6 +44,10 @@ System.register(['lodash'], function (_export, _context) {
           this.q = $q;
           this.backendSrv = backendSrv;
           this.templateSrv = templateSrv;
+          this.headers = { 'Content-Type': 'application/json' };
+          if (typeof instanceSettings.basicAuth === 'string' && instanceSettings.basicAuth.length > 0) {
+            this.headers['Authorization'] = instanceSettings.basicAuth;
+          }
         }
 
         _createClass(GenericDatasource, [{
@@ -62,7 +66,7 @@ System.register(['lodash'], function (_export, _context) {
               url: this.url + '/query',
               data: query,
               method: 'POST',
-              headers: { 'Content-Type': 'application/json' }
+              headers: this.headers
             });
           }
         }, {
@@ -70,7 +74,8 @@ System.register(['lodash'], function (_export, _context) {
           value: function testDatasource() {
             return this.backendSrv.datasourceRequest({
               url: this.url + '/',
-              method: 'GET'
+              method: 'GET',
+              headers: this.headers
             }).then(function (response) {
               if (response.status === 200) {
                 return { status: "success", message: "Data source is working", title: "Success" };
@@ -96,6 +101,7 @@ System.register(['lodash'], function (_export, _context) {
             return this.backendSrv.datasourceRequest({
               url: this.url + '/annotations',
               method: 'POST',
+              headers: this.headers,
               data: annotationQuery
             }).then(function (result) {
               return result.data;
@@ -103,16 +109,17 @@ System.register(['lodash'], function (_export, _context) {
           }
         }, {
           key: 'metricFindQuery',
-          value: function metricFindQuery(query) {
+          value: function metricFindQuery(options) {
+            var target = typeof options === "string" ? options : options.target;
             var interpolated = {
-              target: this.templateSrv.replace(query, null, 'regex')
+              target: this.templateSrv.replace(target, null, 'regex')
             };
 
             return this.backendSrv.datasourceRequest({
               url: this.url + '/search',
               data: interpolated,
               method: 'POST',
-              headers: { 'Content-Type': 'application/json' }
+              headers: this.headers
             }).then(this.mapToTextValue);
           }
         }, {
