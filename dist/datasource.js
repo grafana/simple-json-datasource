@@ -44,6 +44,7 @@ System.register(['lodash'], function (_export, _context) {
           this.q = $q;
           this.backendSrv = backendSrv;
           this.templateSrv = templateSrv;
+          this.withCredentials = instanceSettings.withCredentials;
           this.headers = { 'Content-Type': 'application/json' };
           if (typeof instanceSettings.basicAuth === 'string' && instanceSettings.basicAuth.length > 0) {
             this.headers['Authorization'] = instanceSettings.basicAuth;
@@ -62,20 +63,18 @@ System.register(['lodash'], function (_export, _context) {
               return this.q.when({ data: [] });
             }
 
-            return this.backendSrv.datasourceRequest({
+            return this.doRequest({
               url: this.url + '/query',
               data: query,
-              method: 'POST',
-              headers: this.headers
+              method: 'POST'
             });
           }
         }, {
           key: 'testDatasource',
           value: function testDatasource() {
-            return this.backendSrv.datasourceRequest({
+            return this.doRequest({
               url: this.url + '/',
-              method: 'GET',
-              headers: this.headers
+              method: 'GET'
             }).then(function (response) {
               if (response.status === 200) {
                 return { status: "success", message: "Data source is working", title: "Success" };
@@ -98,10 +97,9 @@ System.register(['lodash'], function (_export, _context) {
               rangeRaw: options.rangeRaw
             };
 
-            return this.backendSrv.datasourceRequest({
+            return this.doRequest({
               url: this.url + '/annotations',
               method: 'POST',
-              headers: this.headers,
               data: annotationQuery
             }).then(function (result) {
               return result.data;
@@ -115,11 +113,10 @@ System.register(['lodash'], function (_export, _context) {
               target: this.templateSrv.replace(target, null, 'regex')
             };
 
-            return this.backendSrv.datasourceRequest({
+            return this.doRequest({
               url: this.url + '/search',
               data: interpolated,
-              method: 'POST',
-              headers: this.headers
+              method: 'POST'
             }).then(this.mapToTextValue);
           }
         }, {
@@ -133,6 +130,14 @@ System.register(['lodash'], function (_export, _context) {
               }
               return { text: d, value: d };
             });
+          }
+        }, {
+          key: 'doRequest',
+          value: function doRequest(options) {
+            options.withCredentials = this.withCredentials;
+            options.headers = this.headers;
+
+            return this.backendSrv.datasourceRequest(options);
           }
         }, {
           key: 'buildQueryParameters',

@@ -9,6 +9,7 @@ export class GenericDatasource {
     this.q = $q;
     this.backendSrv = backendSrv;
     this.templateSrv = templateSrv;
+    this.withCredentials = instanceSettings.withCredentials;
     this.headers = {'Content-Type': 'application/json'};
     if (typeof instanceSettings.basicAuth === 'string' && instanceSettings.basicAuth.length > 0) {
       this.headers['Authorization'] = instanceSettings.basicAuth;
@@ -23,19 +24,17 @@ export class GenericDatasource {
       return this.q.when({data: []});
     }
 
-    return this.backendSrv.datasourceRequest({
+    return this.doRequest({
       url: this.url + '/query',
       data: query,
-      method: 'POST',
-      headers: this.headers
+      method: 'POST'
     });
   }
 
   testDatasource() {
-    return this.backendSrv.datasourceRequest({
+    return this.doRequest({
       url: this.url + '/',
       method: 'GET',
-      headers: this.headers
     }).then(response => {
       if (response.status === 200) {
         return { status: "success", message: "Data source is working", title: "Success" };
@@ -57,10 +56,9 @@ export class GenericDatasource {
       rangeRaw: options.rangeRaw
     };
 
-    return this.backendSrv.datasourceRequest({
+    return this.doRequest({
       url: this.url + '/annotations',
       method: 'POST',
-      headers: this.headers,
       data: annotationQuery
     }).then(result => {
       return result.data;
@@ -73,11 +71,10 @@ export class GenericDatasource {
         target: this.templateSrv.replace(target, null, 'regex')
     };
 
-    return this.backendSrv.datasourceRequest({
+    return this.doRequest({
       url: this.url + '/search',
       data: interpolated,
       method: 'POST',
-      headers: this.headers
     }).then(this.mapToTextValue);
   }
 
@@ -90,6 +87,13 @@ export class GenericDatasource {
       }
       return { text: d, value: d };
     });
+  }
+
+  doRequest(options) {
+    options.withCredentials = this.withCredentials;
+    options.headers = this.headers;
+
+    return this.backendSrv.datasourceRequest(options);
   }
 
   buildQueryParameters(options) {
