@@ -160,6 +160,9 @@ This plugin requires node 6.10.0
 
 ### Changelog
 
+1.3.4
+- Adds support for With Credentials (sends grafana cookies with request) when using Direct mode
+
 1.3.3
  - Adds support for basic authentication
 
