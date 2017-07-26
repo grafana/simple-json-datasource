@@ -35,8 +35,8 @@ Example `timeserie` request
   "interval": "30s",
   "intervalMs": 30000,
   "targets": [
-     { "target": "upper_50", "refId": "A", "type": "timeserie" },
-     { "target": "upper_75", "refId": "B", "type": "timeserie" }
+     { "query": "your custom query", "target": "upper_50", refId: "A", "type": "timeserie" },
+     { "query": "your custom query", "target": "upper_75", refId: "B", "type": "timeserie" }
   ],
   "format": "json",
   "maxDataPoints": 550

@@ -151,6 +151,7 @@ System.register(['lodash'], function (_export, _context) {
 
             var targets = _.map(options.targets, function (target) {
               return {
+                query: _this.templateSrv.replace(target.query),
                 target: _this.templateSrv.replace(target.target),
                 refId: target.refId,
                 hide: target.hide,
