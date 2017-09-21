@@ -11,6 +11,16 @@ Your backend needs to implement 4 urls:
  * `/query` should return metrics based on input.
  * `/annotations` should return annotations.
 
+## Installation
+
+To install this plugin using the `grafana-cli` tool:
+```
+sudo grafana-cli plugins install grafana-simple-json-datasource
+sudo service grafana-server restart
+```
+See [here](https://grafana.com/plugins/grafana-simple-json-datasource/installation) for more
+information.
+
 ### Example backend implementations
 - https://github.com/bergquist/fake-simple-json-datasource
 
