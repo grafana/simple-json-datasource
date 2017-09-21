@@ -11,6 +11,7 @@
     <div ng-if="!ctrl.target.rawQuery">
       <div class="gf-form">
         <gf-form-dropdown model="ctrl.target.target"
+          allow-custom="true"
           lookup-text="true"
           get-options="ctrl.getOptions($query)"
           on-change="ctrl.onChangeInternal()">
