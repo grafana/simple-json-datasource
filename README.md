@@ -170,6 +170,9 @@ This plugin requires node 6.10.0
 
 ### Changelog
 
+1.3.5
+- Fix for dropdowns in query editor to allow writing template variables (broke due to change in Grafana).
+
 1.3.4
 - Adds support for With Credentials (sends grafana cookies with request) when using Direct mode
 - Fix for the typeahead component for metrics dropdown (/search endpoint).
