@@ -1,6 +1,6 @@
 'use strict';
 
-System.register(['app/plugins/sdk', './css/query-editor.css!'], function (_export, _context) {
+System.register(['app/plugins/sdk', './css/query-editor.css!', './mode-simplejson', './snippets'], function (_export, _context) {
   "use strict";
 
   var QueryCtrl, _createClass, GenericDatasourceQueryCtrl;
@@ -38,7 +38,7 @@ System.register(['app/plugins/sdk', './css/query-editor.css!'], function (_expor
   return {
     setters: [function (_appPluginsSdk) {
       QueryCtrl = _appPluginsSdk.QueryCtrl;
-    }, function (_cssQueryEditorCss) {}],
+    }, function (_cssQueryEditorCss) {}, function (_modeSimplejson) {}, function (_snippets) {}],
     execute: function () {
       _createClass = function () {
         function defineProperties(target, props) {

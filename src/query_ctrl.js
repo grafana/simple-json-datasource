@@ -1,5 +1,7 @@
 import {QueryCtrl} from 'app/plugins/sdk';
 import './css/query-editor.css!'
+import './mode-simplejson';
+import './snippets';
 
 export class GenericDatasourceQueryCtrl extends QueryCtrl {
 

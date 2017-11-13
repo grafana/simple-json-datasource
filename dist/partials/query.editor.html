@@ -8,6 +8,13 @@
       <textarea class="gf-form-input" rows="5" ng-model="ctrl.target.target" spellcheck="false" ng-blur="ctrl.onChangeInternal()" />
     </div>
 
+    <div class="gf-form-inline">
+      <div class="gf-form gf-form--grow">
+        <code-editor content="ctrl.target.target" datasource="ctrl.datasource" on-change="ctrl.panelCtrl.refresh()" data-mode="simplejson">
+        </code-editor>
+      </div>
+    </div>
+
     <div ng-if="!ctrl.target.rawQuery">
       <div class="gf-form">
         <gf-form-dropdown model="ctrl.target.target"

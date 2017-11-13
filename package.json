@@ -18,7 +18,7 @@
     "url": "https://github.com/grafana/simple-json-datasource/issues"
   },
   "engines": {
-    "node": "6.10.0"
+    "node": ">6.10.0"
   },
   "engineStrict": true,
   "devDependencies": {
