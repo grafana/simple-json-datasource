@@ -24,6 +24,7 @@ information.
 ### Example backend implementations
 - https://github.com/bergquist/fake-simple-json-datasource
 - https://github.com/smcquay/jsonds
+- https://gist.github.com/linar-jether/95ff412f9d19fdf5e51293eb0c09b850 (Python/pandas backend)
 
 ### Query API
 
