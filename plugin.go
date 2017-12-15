@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"strings"
 
 	"github.com/golang/glog"
 	"golang.org/x/net/context"
@@ -20,12 +21,31 @@ type Tsdb struct {
 	plugin.NetRPCUnsupportedPlugin
 }
 
-func (t *Tsdb) Query(ctx context.Context, req *proto.TsdbQuery) (*proto.Response, error) {
+func (t *Tsdb) Query(ctx context.Context, tsdbReq *proto.TsdbQuery) (*proto.Response, error) {
 	log.Print("Tsdb.Get() from plugin")
 
-	url := req.Datasource.Url
+	url := tsdbReq.Datasource.Url + "/query"
 
-	res, err := http.Get(url)
+	postBody := `
+		{
+			"timezone":"browser",
+			"panelId":1,
+			"range": {"from":"2017-12-15T09:53:37.485Z","to":"2017-12-15T15:53:37.485Z","raw":{"from":"now-6h","to":"now"}},
+			"rangeRaw":{"from":"now-6h","to":"now"},
+			"interval":"20s",
+			"intervalMs":20000,
+			"targets":[{"target":"upper_25","refId":"A","type":"timeserie"}],
+			"maxDataPoints":1133,"scopedVars":{"__interval":{"text":"20s","value":"20s"},"__interval_ms":{"text":20000,"value":20000}}
+	}`
+
+	req, err := http.NewRequest(http.MethodPost, url, strings.NewReader(postBody))
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", "application/json")
+
+	res, err := http.DefaultClient.Do(req)
 	if err != nil {
 		return nil, err
 	}
