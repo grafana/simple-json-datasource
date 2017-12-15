@@ -9,6 +9,8 @@
 
   "metrics": true,
   "annotations": true,
+  "backend": true,
+  "executable": "simple-plugin",
 
   "info": {
     "description": "simple json datasource",
