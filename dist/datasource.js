@@ -144,22 +144,16 @@ System.register(['lodash'], function (_export, _context) {
                   to: options.data.range.to.valueOf().toString(),
                   queries: options.data.targets
                 }
-              }).then(function (d) {
-
+              }).then(function (result) {
                 var res = [];
-                _.forEach(d.data.results, function (r) {
+                _.forEach(result.data.results, function (r) {
                   _.forEach(r.series, function (s) {
-
-                    var pts = _.map(s.points, function (p) {
-                      return [p[0], p[1] * 1000];
-                    });
-
-                    res.push({ target: s.name, datapoints: pts });
+                    res.push({ target: s.name, datapoints: s.points });
                   });
                 });
 
-                d.data = res;
-                return d;
+                result.data = res;
+                return result;
               });
             } else {
               options.withCredentials = this.withCredentials;

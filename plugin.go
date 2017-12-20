@@ -6,9 +6,6 @@ import (
 	"io/ioutil"
 	"net/http"
 	"strings"
-	"time"
-
-	"github.com/golang/protobuf/ptypes"
 
 	"golang.org/x/net/context"
 
@@ -78,12 +75,8 @@ func (t *Tsdb) Query(ctx context.Context, tsdbReq *proto.TsdbQuery) (*proto.Resp
 		}
 
 		for _, p := range r.DataPoints {
-			t := int64(p[1].Float64)
-			epoch := time.Unix(t/1000, (t%1000)*int64(time.Millisecond))
-
-			timestamp, _ := ptypes.TimestampProto(epoch)
 			serie.Points = append(serie.Points, &proto.Point{
-				Timestamp: timestamp,
+				Timestamp: int64(p[1].Float64),
 				Value:     p[0].Float64,
 			})
 		}

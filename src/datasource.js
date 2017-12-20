@@ -100,22 +100,16 @@ export class GenericDatasource {
           to: options.data.range.to.valueOf().toString(),
           queries: options.data.targets,
         }
-      }).then(d => {
-
+      }).then(result => {
         var res= [];
-        _.forEach(d.data.results, r => {
+        _.forEach(result.data.results, r => {
           _.forEach(r.series, s => {
-
-            var pts = _.map(s.points, p => {
-              return [p[0], p[1] * 1000];
-            })
-
-            res.push({target: s.name, datapoints: pts});
+            res.push({target: s.name, datapoints: s.points});
           })
         })
         
-        d.data = res;
-        return d;
+        result.data = res;
+        return result;
       });
     } else {
       options.withCredentials = this.withCredentials;
