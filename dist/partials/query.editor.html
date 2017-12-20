@@ -8,6 +8,8 @@
       <textarea class="gf-form-input" rows="5" ng-model="ctrl.target.target" spellcheck="false" ng-blur="ctrl.onChangeInternal()" />
     </div>
 
+    <gf-form-switch class="gf-form" label="Backend" label-class="width-5" checked="ctrl.target.backend" on-change="ctrl.refresh()"></gf-form-switch>
+
     <div ng-if="!ctrl.target.rawQuery">
       <div class="gf-form">
         <gf-form-dropdown model="ctrl.target.target"

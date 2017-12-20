@@ -6,12 +6,16 @@ import (
 	"io/ioutil"
 	"net/http"
 	"strings"
+	"time"
 
-	"github.com/golang/glog"
+	"github.com/golang/protobuf/ptypes"
+
 	"golang.org/x/net/context"
 
 	"log"
 
+	"github.com/grafana/grafana/pkg/components/null"
+	"github.com/grafana/grafana/pkg/tsdb"
 	proto "github.com/grafana/grafana/pkg/tsdb/models"
 	shared "github.com/grafana/grafana/pkg/tsdb/models/proxy"
 	plugin "github.com/hashicorp/go-plugin"
@@ -60,23 +64,53 @@ func (t *Tsdb) Query(ctx context.Context, tsdbReq *proto.TsdbQuery) (*proto.Resp
 		return nil, err
 	}
 
-	ts := []*proto.TimeSeries{}
-	err = json.Unmarshal(body, &ts)
+	responseBody := []TargetResponseDTO{}
+	err = json.Unmarshal(body, &responseBody)
 	if err != nil {
-		glog.Info("Failed to unmarshal graphite response", "error", err, "status", res.Status, "body", string(body))
+		log.Println("Failed to unmarshal json response", "error", err, "status", res.Status, "body", string(body))
 		return nil, err
 	}
 
-	return &proto.Response{
+	series := []*proto.TimeSeries{}
+	for _, r := range responseBody {
+		serie := &proto.TimeSeries{
+			Name: r.Target,
+		}
+
+		for _, p := range r.DataPoints {
+			t := int64(p[1].Float64)
+			epoch := time.Unix(t/1000, (t%1000)*int64(time.Millisecond))
+
+			timestamp, _ := ptypes.TimestampProto(epoch)
+			serie.Points = append(serie.Points, &proto.Point{
+				Timestamp: timestamp,
+				Value:     p[0].Float64,
+			})
+		}
+
+		series = append(series, serie)
+	}
+
+	response := &proto.Response{
 		Message: "from plugins! meta meta",
 		Results: []*proto.QueryResult{
 			&proto.QueryResult{
-				RefId:  "A",
-				Series: ts,
+				RefId:  tsdbReq.Queries[0].RefId,
+				Series: series,
 			},
 		},
-	}, nil
+	}
+
+	return response, nil
 }
+
+type TargetResponseDTO struct {
+	Target     string                `json:"target"`
+	DataPoints tsdb.TimeSeriesPoints `json:"datapoints"`
+}
+
+type TimePoint [2]null.Float
+type TimeSeriesPoints []TimePoint
 
 func main() {
 

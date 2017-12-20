@@ -6,8 +6,10 @@ export class GenericDatasource {
     this.type = instanceSettings.type;
     this.url = instanceSettings.url;
     this.name = instanceSettings.name;
+    this.id = instanceSettings.id;
     this.q = $q;
     this.backendSrv = backendSrv;
+    this.backend = true;
     this.templateSrv = templateSrv;
     this.withCredentials = instanceSettings.withCredentials;
     this.headers = {'Content-Type': 'application/json'};
@@ -89,10 +91,39 @@ export class GenericDatasource {
   }
 
   doRequest(options) {
-    options.withCredentials = this.withCredentials;
-    options.headers = this.headers;
+    if (this.backend) {
+      return this.backendSrv.datasourceRequest({
+        url: '/api/tsdb/query',
+        method: 'POST',
+        data: {
+          from: options.data.range.from.valueOf().toString(),
+          to: options.data.range.to.valueOf().toString(),
+          queries: options.data.targets,
+        }
+      }).then(d => {
 
-    return this.backendSrv.datasourceRequest(options);
+        var res= [];
+        _.forEach(d.data.results, r => {
+          _.forEach(r.series, s => {
+
+            var pts = _.map(s.points, p => {
+              return [p[0], p[1] * 1000];
+            })
+
+            res.push({target: s.name, datapoints: pts});
+          })
+        })
+        
+        d.data = res;
+        return d;
+      });
+    } else {
+      options.withCredentials = this.withCredentials;
+      options.headers = this.headers;
+  
+      return this.backendSrv.datasourceRequest(options)
+      .then(d => { console.log(d); return d;});
+    }
   }
 
   buildQueryParameters(options) {
@@ -106,7 +137,8 @@ export class GenericDatasource {
         target: this.templateSrv.replace(target.target, options.scopedVars, 'regex'),
         refId: target.refId,
         hide: target.hide,
-        type: target.type || 'timeserie'
+        type: target.type || 'timeserie',
+        datasourceId: this.id
       };
     });
 
