@@ -3,8 +3,10 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/grafana/grafana/pkg/components/simplejson"
 	"io/ioutil"
 	"net/http"
+	"os"
 	"strings"
 
 	"golang.org/x/net/context"
@@ -23,48 +25,69 @@ type Tsdb struct {
 }
 
 func (t *Tsdb) Query(ctx context.Context, tsdbReq *proto.TsdbQuery) (*proto.Response, error) {
-	log.Print("Tsdb.Get() from plugin")
-
+	log.Println("from plugins!")
 	url := tsdbReq.Datasource.Url + "/query"
 
-	postBody := `
-		{
-			"timezone":"browser",
-			"panelId":1,
-			"range": {"from":"2017-12-15T09:53:37.485Z","to":"2017-12-15T15:53:37.485Z","raw":{"from":"now-6h","to":"now"}},
-			"rangeRaw":{"from":"now-6h","to":"now"},
-			"interval":"20s",
-			"intervalMs":20000,
-			"targets":[{"target":"upper_25","refId":"A","type":"timeserie"}],
-			"maxDataPoints":1133,"scopedVars":{"__interval":{"text":"20s","value":"20s"},"__interval_ms":{"text":20000,"value":20000}}
-	}`
-
-	req, err := http.NewRequest(http.MethodPost, url, strings.NewReader(postBody))
-	if err != nil {
-		return nil, err
+	response := &proto.Response{
+		Message: "from plugins! meta meta",
+		Results: map[string]*proto.QueryResult{},
 	}
 
-	req.Header.Add("Content-Type", "application/json")
+	// postBody := `
+	// 	{
+	// 		"timezone":"browser",
+	// 		"panelId":1,
+	// 		"range": {"from":"2017-12-15T09:53:37.485Z","to":"2017-12-15T15:53:37.485Z","raw":{"from":"now-6h","to":"now"}},
+	// 		"rangeRaw":{"from":"now-6h","to":"now"},
+	// 		"interval":"20s",
+	// 		"intervalMs":20000,
+	// 		"targets":[{"target":"upper_25","refId":"A","type":"timeserie"}],
+	// 		"maxDataPoints":1133,"scopedVars":{"__interval":{"text":"20s","value":"20s"},"__interval_ms":{"text":20000,"value":20000}}
+	// }`
 
-	res, err := http.DefaultClient.Do(req)
-	if err != nil {
-		return nil, err
+	for _, query := range tsdbReq.Queries {
+		json, _ := simplejson.NewJson([]byte(query.ModelJson))
+
+		json.Set("to", tsdbReq.Timerange.To)
+		json.Set("from", tsdbReq.Timerange.From)
+
+		dump, _ := json.String()
+		req, err := http.NewRequest(http.MethodPost, url, strings.NewReader(dump))
+		if err != nil {
+			return nil, err
+		}
+
+		response.Message = query.ModelJson
+
+		req.Header.Add("Content-Type", "application/json")
+
+		res, err := http.DefaultClient.Do(req)
+		if err != nil {
+			return nil, err
+		}
+
+		if res.StatusCode != http.StatusOK {
+			return nil, fmt.Errorf("invalid status code. error: %v", err)
+		}
+
+		body, err := ioutil.ReadAll(res.Body)
+		defer res.Body.Close()
+		if err != nil {
+			return nil, err
+		}
+
+		r, _ := parseResponse(body, query.RefId)
+		response.Results[query.RefId] = r
 	}
 
-	if res.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("invalid status code. error: %v", err)
-	}
+	return response, nil
+}
 
-	body, err := ioutil.ReadAll(res.Body)
-	defer res.Body.Close()
-	if err != nil {
-		return nil, err
-	}
-
+func parseResponse(body []byte, refId string) (*proto.QueryResult, error) {
 	responseBody := []TargetResponseDTO{}
-	err = json.Unmarshal(body, &responseBody)
+	err := json.Unmarshal(body, &responseBody)
 	if err != nil {
-		log.Println("Failed to unmarshal json response", "error", err, "status", res.Status, "body", string(body))
+		log.Println("Failed to unmarshal json response", "error", err, "body", string(body))
 		return nil, err
 	}
 
@@ -84,17 +107,10 @@ func (t *Tsdb) Query(ctx context.Context, tsdbReq *proto.TsdbQuery) (*proto.Resp
 		series = append(series, serie)
 	}
 
-	response := &proto.Response{
-		Message: "from plugins! meta meta",
-		Results: []*proto.QueryResult{
-			&proto.QueryResult{
-				RefId:  tsdbReq.Queries[0].RefId,
-				Series: series,
-			},
-		},
-	}
-
-	return response, nil
+	return &proto.QueryResult{
+		Series: series,
+		RefId:  refId,
+	}, nil
 }
 
 type TargetResponseDTO struct {
@@ -106,6 +122,7 @@ type TimePoint [2]null.Float
 type TimeSeriesPoints []TimePoint
 
 func main() {
+	log.SetOutput(os.Stderr)
 
 	plugin.Serve(&plugin.ServeConfig{
 

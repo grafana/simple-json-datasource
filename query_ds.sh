@@ -10,8 +10,9 @@ post_data=$(cat <<EOF
             "intervalMs":20000,
             "maxDataPoints":940,
             "datasourceId":7,
-            "rawSql":"SELECT 'http://www.grafana.com?var1=1&var2=2' as link",
-            "format":"table"}
+
+            "targets":[{"target":"upper_25","refId":"A","type":"timeserie"}]
+        }
     ]
 }
 EOF
