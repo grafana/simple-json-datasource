@@ -11,7 +11,7 @@ post_data=$(cat <<EOF
             "maxDataPoints":940,
             "datasourceId":7,
 
-            "targets":[{"target":"upper_25","refId":"A","type":"timeserie"}]
+            "targets":[{"target":"upper_25","refId":"A","type":"timeserie"}, {"target":"upper_25","refId":"A","type":"timeserie"}]
         }
     ]
 }

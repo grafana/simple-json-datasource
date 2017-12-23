@@ -33,52 +33,50 @@ func (t *Tsdb) Query(ctx context.Context, tsdbReq *proto.TsdbQuery) (*proto.Resp
 		Results: map[string]*proto.QueryResult{},
 	}
 
-	// postBody := `
-	// 	{
-	// 		"timezone":"browser",
-	// 		"panelId":1,
-	// 		"range": {"from":"2017-12-15T09:53:37.485Z","to":"2017-12-15T15:53:37.485Z","raw":{"from":"now-6h","to":"now"}},
-	// 		"rangeRaw":{"from":"now-6h","to":"now"},
-	// 		"interval":"20s",
-	// 		"intervalMs":20000,
-	// 		"targets":[{"target":"upper_25","refId":"A","type":"timeserie"}],
-	// 		"maxDataPoints":1133,"scopedVars":{"__interval":{"text":"20s","value":"20s"},"__interval_ms":{"text":20000,"value":20000}}
-	// }`
+	payload := simplejson.New()
+	payload.SetPath([]string{"range", "to"}, tsdbReq.Timerange.To)
+	payload.SetPath([]string{"range", "from"}, tsdbReq.Timerange.From)
 
+	qs := []interface{}{}
 	for _, query := range tsdbReq.Queries {
 		json, _ := simplejson.NewJson([]byte(query.ModelJson))
 
-		json.Set("to", tsdbReq.Timerange.To)
-		json.Set("from", tsdbReq.Timerange.From)
-
-		dump, _ := json.String()
-		req, err := http.NewRequest(http.MethodPost, url, strings.NewReader(dump))
-		if err != nil {
-			return nil, err
+		for _, targetObj := range json.Get("targets").MustArray() {
+			qs = append(qs, simplejson.NewFromAny(targetObj))
 		}
-
-		response.Message = query.ModelJson
-
-		req.Header.Add("Content-Type", "application/json")
-
-		res, err := http.DefaultClient.Do(req)
-		if err != nil {
-			return nil, err
-		}
-
-		if res.StatusCode != http.StatusOK {
-			return nil, fmt.Errorf("invalid status code. error: %v", err)
-		}
-
-		body, err := ioutil.ReadAll(res.Body)
-		defer res.Body.Close()
-		if err != nil {
-			return nil, err
-		}
-
-		r, _ := parseResponse(body, query.RefId)
-		response.Results[query.RefId] = r
 	}
+
+	payload.Set("targets", qs)
+
+	rbody, err := payload.MarshalJSON()
+	if err != nil {
+		log.Fatalln("error", err)
+		return nil, err
+	}
+	req, err := http.NewRequest(http.MethodPost, url, strings.NewReader(string(rbody)))
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", "application/json")
+
+	res, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return nil, err
+	}
+
+	if res.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("invalid status code. error: %v", err)
+	}
+
+	body, err := ioutil.ReadAll(res.Body)
+	defer res.Body.Close()
+	if err != nil {
+		return nil, err
+	}
+
+	r, _ := parseResponse(body, "A")
+	response.Results["A"] = r
 
 	return response, nil
 }
@@ -122,7 +120,7 @@ type TimePoint [2]null.Float
 type TimeSeriesPoints []TimePoint
 
 func main() {
-	log.SetOutput(os.Stderr)
+	log.SetOutput(os.Stderr) // this is how
 
 	plugin.Serve(&plugin.ServeConfig{
 

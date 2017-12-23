@@ -107,16 +107,15 @@ export class GenericDatasource {
             res.push({target: s.name, datapoints: s.points});
           })
         })
-        
+
         result.data = res;
         return result;
       });
     } else {
       options.withCredentials = this.withCredentials;
       options.headers = this.headers;
-  
-      return this.backendSrv.datasourceRequest(options)
-      .then(d => { console.log(d); return d;});
+
+      return this.backendSrv.datasourceRequest(options);
     }
   }
 
