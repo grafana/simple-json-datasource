@@ -13,8 +13,6 @@ import (
 
 	"log"
 
-	"github.com/grafana/grafana/pkg/components/null"
-	"github.com/grafana/grafana/pkg/tsdb"
 	proto "github.com/grafana/grafana/pkg/tsdb/models"
 	shared "github.com/grafana/grafana/pkg/tsdb/models/proxy"
 	plugin "github.com/hashicorp/go-plugin"
@@ -26,10 +24,9 @@ type Tsdb struct {
 
 func (t *Tsdb) Query(ctx context.Context, tsdbReq *proto.TsdbQuery) (*proto.Response, error) {
 	log.Println("from plugins!")
-	url := tsdbReq.Datasource.Url + "/query"
 
 	response := &proto.Response{
-		Message: "from plugins! meta meta",
+		Message: fmt.Sprintf("result from datasource name: %s id: %d", tsdbReq.Datasource.Name, tsdbReq.Datasource.Id),
 		Results: map[string]*proto.QueryResult{},
 	}
 
@@ -39,13 +36,15 @@ func (t *Tsdb) Query(ctx context.Context, tsdbReq *proto.TsdbQuery) (*proto.Resp
 
 	qs := []interface{}{}
 	for _, query := range tsdbReq.Queries {
-		json, _ := simplejson.NewJson([]byte(query.ModelJson))
+		json, err := simplejson.NewJson([]byte(query.ModelJson))
+		if err != nil {
+			return nil, err
+		}
 
 		for _, targetObj := range json.Get("targets").MustArray() {
 			qs = append(qs, simplejson.NewFromAny(targetObj))
 		}
 	}
-
 	payload.Set("targets", qs)
 
 	rbody, err := payload.MarshalJSON()
@@ -53,9 +52,15 @@ func (t *Tsdb) Query(ctx context.Context, tsdbReq *proto.TsdbQuery) (*proto.Resp
 		log.Fatalln("error", err)
 		return nil, err
 	}
+
+	url := tsdbReq.Datasource.Url + "/query"
 	req, err := http.NewRequest(http.MethodPost, url, strings.NewReader(string(rbody)))
 	if err != nil {
 		return nil, err
+	}
+
+	if tsdbReq.Datasource.BasicAuth {
+		req.SetBasicAuth(tsdbReq.Datasource.BasicAuthUser, tsdbReq.Datasource.BasicAuthPassword)
 	}
 
 	req.Header.Add("Content-Type", "application/json")
@@ -75,7 +80,11 @@ func (t *Tsdb) Query(ctx context.Context, tsdbReq *proto.TsdbQuery) (*proto.Resp
 		return nil, err
 	}
 
-	r, _ := parseResponse(body, "A")
+	r, err := parseResponse(body, "A")
+	if err != nil {
+		return nil, err
+	}
+
 	response.Results["A"] = r
 
 	return response, nil
@@ -111,16 +120,9 @@ func parseResponse(body []byte, refId string) (*proto.QueryResult, error) {
 	}, nil
 }
 
-type TargetResponseDTO struct {
-	Target     string                `json:"target"`
-	DataPoints tsdb.TimeSeriesPoints `json:"datapoints"`
-}
-
-type TimePoint [2]null.Float
-type TimeSeriesPoints []TimePoint
-
 func main() {
-	log.SetOutput(os.Stderr) // this is how
+	// the plugin sends logs to the host process on strErr
+	log.SetOutput(os.Stderr)
 
 	plugin.Serve(&plugin.ServeConfig{
 
