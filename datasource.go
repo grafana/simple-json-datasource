@@ -74,9 +74,7 @@ func (t *JsonDatasource) createRequest(tsdbReq *proto.TsdbQuery) (*http.Request,
 			return nil, err
 		}
 
-		for _, targetObj := range json.Get("targets").MustArray() {
-			qs = append(qs, simplejson.NewFromAny(targetObj))
-		}
+		qs = append(qs, json)
 	}
 	payload.Set("targets", qs)
 

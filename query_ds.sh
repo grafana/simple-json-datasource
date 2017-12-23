@@ -2,18 +2,12 @@
 
 post_data=$(cat <<EOF
 {
-    "from":"1512979580818",
-    "to":"1513001180818",
-    "queries":[
-        {
-            "refId":"A",
-            "intervalMs":20000,
-            "maxDataPoints":940,
-            "datasourceId":7,
-
-            "targets":[{"target":"upper_25","refId":"A","type":"timeserie"}, {"target":"upper_25","refId":"A","type":"timeserie"}]
-        }
-    ]
+  "from":"1514041482653",
+  "to":"1514063082653",
+  "queries":[
+    {"target":"upper_25","refId":"A","type":"timeserie","datasourceId":7},
+    {"target":"upper_25","refId":"B","type":"timeserie","datasourceId":7}
+  ]
 }
 EOF
 )
