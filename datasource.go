@@ -41,16 +41,16 @@ func (t *JsonDatasource) Query(ctx context.Context, tsdbReq *proto.TsdbQuery) (*
 	if err != nil {
 		return nil, err
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("invalid status code. error: %v", err)
+		return nil, fmt.Errorf("invalid status code. status: %v", res.Status)
 	}
 
 	body, err := ioutil.ReadAll(res.Body)
 	if err != nil {
 		return nil, err
 	}
-	defer res.Body.Close()
 
 	r, err := parseResponse(body, "A")
 	if err != nil {
@@ -82,7 +82,6 @@ func (t *JsonDatasource) createRequest(tsdbReq *proto.TsdbQuery) (*http.Request,
 
 	rbody, err := payload.MarshalJSON()
 	if err != nil {
-		log.Fatalln("error", err)
 		return nil, err
 	}
 
@@ -93,7 +92,9 @@ func (t *JsonDatasource) createRequest(tsdbReq *proto.TsdbQuery) (*http.Request,
 	}
 
 	if tsdbReq.Datasource.BasicAuth {
-		req.SetBasicAuth(tsdbReq.Datasource.BasicAuthUser, tsdbReq.Datasource.BasicAuthPassword)
+		req.SetBasicAuth(
+			tsdbReq.Datasource.BasicAuthUser,
+			tsdbReq.Datasource.BasicAuthPassword)
 	}
 
 	req.Header.Add("Content-Type", "application/json")
@@ -103,18 +104,14 @@ func (t *JsonDatasource) createRequest(tsdbReq *proto.TsdbQuery) (*http.Request,
 
 func parseResponse(body []byte, refId string) (*proto.QueryResult, error) {
 	responseBody := []TargetResponseDTO{}
-
 	err := json.Unmarshal(body, &responseBody)
 	if err != nil {
-		log.Println("Failed to unmarshal json response", "error", err, "body", string(body))
 		return nil, err
 	}
 
 	series := []*proto.TimeSeries{}
 	for _, r := range responseBody {
-		serie := &proto.TimeSeries{
-			Name: r.Target,
-		}
+		serie := &proto.TimeSeries{Name: r.Target}
 
 		for _, p := range r.DataPoints {
 			serie.Points = append(serie.Points, &proto.Point{

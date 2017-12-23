@@ -10,8 +10,7 @@ import (
 )
 
 func main() {
-	// the plugin sends logs to the host process on strErr
-	log.SetOutput(os.Stderr)
+	log.SetOutput(os.Stderr) // the plugin sends logs to the host process on strErr
 
 	plugin.Serve(&plugin.ServeConfig{
 
