@@ -159,9 +159,7 @@ System.register(['lodash'], function (_export, _context) {
               options.withCredentials = this.withCredentials;
               options.headers = this.headers;
 
-              return this.backendSrv.datasourceRequest(options).then(function (d) {
-                console.log(d);return d;
-              });
+              return this.backendSrv.datasourceRequest(options);
             }
           }
         }, {
