@@ -4,13 +4,14 @@ import (
 	"crypto/tls"
 	"encoding/json"
 	"fmt"
-	"github.com/grafana/grafana/pkg/components/simplejson"
-	"golang.org/x/net/context/ctxhttp"
 	"io/ioutil"
 	"net"
 	"net/http"
 	"strings"
 	"time"
+
+	"github.com/grafana/grafana/pkg/components/simplejson"
+	"golang.org/x/net/context/ctxhttp"
 
 	"golang.org/x/net/context"
 
