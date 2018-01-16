@@ -12,8 +12,6 @@ post_data=$(cat <<EOF
 EOF
 )
 
-# echo ${post_data}
-
 curl \
 --header "Accept: application/json" \
 --header "Content-Type: application/json" \

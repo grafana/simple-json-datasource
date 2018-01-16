@@ -28,10 +28,7 @@ type JsonDatasource struct {
 func (t *JsonDatasource) Query(ctx context.Context, tsdbReq *proto.TsdbQuery) (*proto.Response, error) {
 	log.Println("from plugins!")
 
-	response := &proto.Response{
-		Message: fmt.Sprintf("result from datasource name: %s id: %d", tsdbReq.Datasource.Name, tsdbReq.Datasource.Id),
-		Results: map[string]*proto.QueryResult{},
-	}
+	response := &proto.Response{}
 
 	req, err := t.createRequest(tsdbReq)
 	if err != nil {
@@ -58,15 +55,15 @@ func (t *JsonDatasource) Query(ctx context.Context, tsdbReq *proto.TsdbQuery) (*
 		return nil, err
 	}
 
-	response.Results["A"] = r
+	response.Results = append(response.Results, r)
 
 	return response, nil
 }
 
 func (t *JsonDatasource) createRequest(tsdbReq *proto.TsdbQuery) (*http.Request, error) {
 	payload := simplejson.New()
-	payload.SetPath([]string{"range", "to"}, tsdbReq.Timerange.To)
-	payload.SetPath([]string{"range", "from"}, tsdbReq.Timerange.From)
+	payload.SetPath([]string{"range", "to"}, tsdbReq.TimeRange.ToRaw)
+	payload.SetPath([]string{"range", "from"}, tsdbReq.TimeRange.FromRaw)
 
 	qs := []interface{}{}
 	for _, query := range tsdbReq.Queries {
@@ -90,11 +87,11 @@ func (t *JsonDatasource) createRequest(tsdbReq *proto.TsdbQuery) (*http.Request,
 		return nil, err
 	}
 
-	if tsdbReq.Datasource.BasicAuth {
-		req.SetBasicAuth(
-			tsdbReq.Datasource.BasicAuthUser,
-			tsdbReq.Datasource.BasicAuthPassword)
-	}
+	//if tsdbReq.Datasource.BasicAuth {
+	//	req.SetBasicAuth(
+	//		tsdbReq.Datasource.BasicAuthUser,
+	//		tsdbReq.Datasource.BasicAuthPassword)
+	//}
 
 	req.Header.Add("Content-Type", "application/json")
 
