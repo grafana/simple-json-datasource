@@ -10,14 +10,14 @@ import (
 	"strings"
 	"time"
 
-	"github.com/grafana/grafana/pkg/components/simplejson"
+	simplejson "github.com/bitly/go-simplejson"
 	"golang.org/x/net/context/ctxhttp"
 
 	"golang.org/x/net/context"
 
 	"log"
 
-	proto "github.com/grafana/grafana/pkg/tsdb/models"
+	"github.com/grafana/grafana_plugin_model/go/datasource"
 	plugin "github.com/hashicorp/go-plugin"
 )
 
@@ -25,10 +25,10 @@ type JsonDatasource struct {
 	plugin.NetRPCUnsupportedPlugin
 }
 
-func (t *JsonDatasource) Query(ctx context.Context, tsdbReq *proto.TsdbQuery) (*proto.Response, error) {
+func (t *JsonDatasource) Query(ctx context.Context, tsdbReq *datasource.DatasourceRequest) (*datasource.DatasourceResponse, error) {
 	log.Println("from plugins!")
 
-	response := &proto.Response{}
+	response := &datasource.DatasourceResponse{}
 
 	req, err := t.createRequest(tsdbReq)
 	if err != nil {
@@ -60,7 +60,7 @@ func (t *JsonDatasource) Query(ctx context.Context, tsdbReq *proto.TsdbQuery) (*
 	return response, nil
 }
 
-func (t *JsonDatasource) createRequest(tsdbReq *proto.TsdbQuery) (*http.Request, error) {
+func (t *JsonDatasource) createRequest(tsdbReq *datasource.DatasourceRequest) (*http.Request, error) {
 	payload := simplejson.New()
 	payload.SetPath([]string{"range", "to"}, tsdbReq.TimeRange.ToRaw)
 	payload.SetPath([]string{"range", "from"}, tsdbReq.TimeRange.FromRaw)
@@ -98,28 +98,28 @@ func (t *JsonDatasource) createRequest(tsdbReq *proto.TsdbQuery) (*http.Request,
 	return req, nil
 }
 
-func parseResponse(body []byte, refId string) (*proto.QueryResult, error) {
+func parseResponse(body []byte, refId string) (*datasource.QueryResult, error) {
 	responseBody := []TargetResponseDTO{}
 	err := json.Unmarshal(body, &responseBody)
 	if err != nil {
 		return nil, err
 	}
 
-	series := []*proto.TimeSeries{}
+	series := []*datasource.TimeSeries{}
 	for _, r := range responseBody {
-		serie := &proto.TimeSeries{Name: r.Target}
+		serie := &datasource.TimeSeries{Name: r.Target}
 
 		for _, p := range r.DataPoints {
-			serie.Points = append(serie.Points, &proto.Point{
-				Timestamp: int64(p[1].Float64),
-				Value:     p[0].Float64,
+			serie.Points = append(serie.Points, &datasource.Point{
+				Timestamp: int64(p[1]),
+				Value:     p[0],
 			})
 		}
 
 		series = append(series, serie)
 	}
 
-	return &proto.QueryResult{
+	return &datasource.QueryResult{
 		Series: series,
 		RefId:  refId,
 	}, nil

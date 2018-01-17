@@ -5,7 +5,7 @@ import (
 
 	"log"
 
-	shared "github.com/grafana/grafana/pkg/plugins/datasource/tsdb"
+	"github.com/grafana/grafana_plugin_model/go/datasource"
 	plugin "github.com/hashicorp/go-plugin"
 )
 
@@ -20,7 +20,7 @@ func main() {
 			MagicCookieValue: "datasource",
 		},
 		Plugins: map[string]plugin.Plugin{
-			"backend-datasource": &shared.TsdbPluginImpl{Plugin: &JsonDatasource{}},
+			"backend-datasource": &datasource.DatasourcePluginImpl{Plugin: &JsonDatasource{}},
 		},
 
 		// A non-nil value here enables gRPC serving for this plugin...
