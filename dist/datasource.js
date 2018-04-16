@@ -63,6 +63,12 @@ System.register(['lodash'], function (_export, _context) {
               return this.q.when({ data: [] });
             }
 
+            if (this.templateSrv.getAdhocFilters) {
+              query.adhocFilters = this.templateSrv.getAdhocFilters(this.name);
+            } else {
+              query.adhocFilters = [];
+            }
+
             return this.doRequest({
               url: this.url + '/query',
               data: query,
@@ -160,6 +166,36 @@ System.register(['lodash'], function (_export, _context) {
             options.targets = targets;
 
             return options;
+          }
+        }, {
+          key: 'getTagKeys',
+          value: function getTagKeys(options) {
+            var _this2 = this;
+
+            return new Promise(function (resolve, reject) {
+              _this2.doRequest({
+                url: _this2.url + '/tag-keys',
+                method: 'POST',
+                data: options
+              }).then(function (result) {
+                return resolve(result.data);
+              });
+            });
+          }
+        }, {
+          key: 'getTagValues',
+          value: function getTagValues(options) {
+            var _this3 = this;
+
+            return new Promise(function (resolve, reject) {
+              _this3.doRequest({
+                url: _this3.url + '/tag-values',
+                method: 'POST',
+                data: options
+              }).then(function (result) {
+                return resolve(result.data);
+              });
+            });
           }
         }]);
 
