@@ -26,9 +26,13 @@
   version = "0.5.0"
 
 [[constraint]]
-  branch = "master"
+  branch = "renderer"
   name = "github.com/grafana/grafana_plugin_model"
 
 [[constraint]]
   branch = "master"
   name = "golang.org/x/net"
+
+[[constraint]]
+  name = "github.com/hashicorp/go-plugin"
+  revision = "e8d22c780116115ae5624720c9af0c97afe4f551"
