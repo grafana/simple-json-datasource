@@ -17,13 +17,13 @@
     "ptypes/duration",
     "ptypes/timestamp"
   ]
-  revision = "927b65914520a8b7d44f5c9057611cfec6b2e2d0"
+  revision = "3a3da3a4e26776cc22a79ef46d5d58477532dede"
 
 [[projects]]
   branch = "renderer"
   name = "github.com/grafana/grafana_plugin_model"
   packages = ["go/datasource"]
-  revision = "413ff63d785ec50065039c847387cd6d0ae611cd"
+  revision = "84176c64269d8060f99e750ee8aba6f062753336"
 
 [[projects]]
   branch = "master"
@@ -67,7 +67,7 @@
     "internal/timeseries",
     "trace"
   ]
-  revision = "2491c5de3490fced2f6cff376127c667efeed857"
+  revision = "8d282c4e200f6234d5df69ac4ad1ecb709c3df2c"
 
 [[projects]]
   name = "golang.org/x/text"
@@ -94,7 +94,7 @@
   branch = "master"
   name = "google.golang.org/genproto"
   packages = ["googleapis/rpc/status"]
-  revision = "7bb2a897381c9c5ab2aeb8614f758d7766af68ff"
+  revision = "694d95ba50e67b2e363f3483057db5d4910c18f9"
 
 [[projects]]
   name = "google.golang.org/grpc"

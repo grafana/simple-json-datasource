@@ -11,13 +11,13 @@
     "ptypes/duration",
     "ptypes/timestamp"
   ]
-  revision = "1e59b77b52bf8e4b449a57e6f79f21226d571845"
+  revision = "927b65914520a8b7d44f5c9057611cfec6b2e2d0"
 
 [[projects]]
   branch = "master"
   name = "github.com/hashicorp/go-hclog"
   packages = ["."]
-  revision = "ca137eb4b4389c9bc6f1a6d887f056bf16c00510"
+  revision = "69ff559dc25f3b435631604f573a5fa1efdb6433"
 
 [[projects]]
   name = "github.com/hashicorp/go-plugin"
@@ -28,7 +28,7 @@
   branch = "master"
   name = "github.com/hashicorp/yamux"
   packages = ["."]
-  revision = "683f49123a33db61abfb241b7ac5e4af4dc54d55"
+  revision = "2658be15c5f05e76244154714161f17e3e77de2e"
 
 [[projects]]
   branch = "master"
@@ -47,17 +47,16 @@
   name = "golang.org/x/net"
   packages = [
     "context",
+    "http/httpguts",
     "http2",
     "http2/hpack",
     "idna",
     "internal/timeseries",
-    "lex/httplex",
     "trace"
   ]
-  revision = "5ccada7d0a7ba9aeb5d3aca8d3501b4c2a509fec"
+  revision = "2491c5de3490fced2f6cff376127c667efeed857"
 
 [[projects]]
-  branch = "master"
   name = "golang.org/x/text"
   packages = [
     "collate",
@@ -75,13 +74,14 @@
     "unicode/norm",
     "unicode/rangetable"
   ]
-  revision = "e19ae1496984b1c655b8044a65c0300a3c878dd3"
+  revision = "f21a4dfb5e38f5895301dc265a8def02365cc3d0"
+  version = "v0.3.0"
 
 [[projects]]
   branch = "master"
   name = "google.golang.org/genproto"
   packages = ["googleapis/rpc/status"]
-  revision = "a8101f21cf983e773d0c1133ebc5424792003214"
+  revision = "7bb2a897381c9c5ab2aeb8614f758d7766af68ff"
 
 [[projects]]
   name = "google.golang.org/grpc"
@@ -113,8 +113,8 @@
     "tap",
     "transport"
   ]
-  revision = "41344da2231b913fa3d983840a57a6b1b7b631a1"
-  version = "v1.12.0"
+  revision = "1e2570b1b19ade82d8dbb31bba4e65e9f9ef5b34"
+  version = "v1.11.1"
 
 [solve-meta]
   analyzer-name = "dep"
