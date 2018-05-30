@@ -30,7 +30,6 @@ public/css/*.min.css
 conf/custom.ini
 fig.yml
 profile.cov
-grafana
 .notouch
 
 # Test artifacts
