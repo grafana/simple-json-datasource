@@ -1,16 +1,19 @@
 package main
 
 import (
-	"os"
-
-	"log"
-
 	"github.com/grafana/grafana_plugin_model/go/datasource"
+	hclog "github.com/hashicorp/go-hclog"
 	plugin "github.com/hashicorp/go-plugin"
 )
 
+var pluginLogger = hclog.New(&hclog.LoggerOptions{
+	Name:  "simple-json-datasource",
+	Level: hclog.LevelFromString("DEBUG"),
+})
+
 func main() {
-	log.SetOutput(os.Stderr) // the plugin sends logs to the host process on strErr
+	//log.SetOutput(os.Stderr) // the plugin sends logs to the host process on strErr
+	pluginLogger.Debug("Running GRPC server")
 
 	plugin.Serve(&plugin.ServeConfig{
 
@@ -20,7 +23,9 @@ func main() {
 			MagicCookieValue: "datasource",
 		},
 		Plugins: map[string]plugin.Plugin{
-			"backend-datasource": &datasource.DatasourcePluginImpl{Plugin: &JsonDatasource{}},
+			"backend-datasource": &datasource.DatasourcePluginImpl{Plugin: &JsonDatasource{
+				logger: pluginLogger,
+			}},
 		},
 
 		// A non-nil value here enables gRPC serving for this plugin...
