@@ -25,6 +25,7 @@ information.
 
 ### Example backend implementations
 - https://github.com/bergquist/fake-simple-json-datasource
+- https://github.com/smcquay/jsonds
 
 ### Query API
 
@@ -208,9 +209,11 @@ This plugin requires node 6.10.0
 
 ### Changelog
 
-dev
-- added tag-keys + tag-values api
-- added adHocFilters parameter to query body
+1.4.0
+
+- Support for adhoc filters:
+  - added tag-keys + tag-values api
+  - added adHocFilters parameter to query body
 
 1.3.5
 - Fix for dropdowns in query editor to allow writing template variables (broke due to change in Grafana).
