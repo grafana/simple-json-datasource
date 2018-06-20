@@ -10,6 +10,8 @@ Your backend needs to implement 4 urls:
  * `/search` used by the find metric options on the query tab in panels.
  * `/query` should return metrics based on input.
  * `/annotations` should return annotations.
+ * `/tag-keys` should return tag keys for ad hoc filters.
+ * `/tag-values` should return tag values for ad hoc filters.
 
 ## Installation
 
@@ -23,6 +25,7 @@ information.
 
 ### Example backend implementations
 - https://github.com/bergquist/fake-simple-json-datasource
+- https://github.com/smcquay/jsonds
 
 ### Query API
 
@@ -48,6 +51,11 @@ Example `timeserie` request
      { "target": "upper_50", "refId": "A", "type": "timeserie" },
      { "target": "upper_75", "refId": "B", "type": "timeserie" }
   ],
+  "adhocFilters": [
+    "key": "City"
+    "operator": "=",
+    "value": "Berlin"
+  ]
   "format": "json",
   "maxDataPoints": 550
 }
@@ -160,6 +168,37 @@ Example map response
 [ { "text" :"upper_25", "value": 1}, { "text" :"upper_75", "value": 2} ]
 ```
 
+### Tag Keys API
+
+Example request
+``` javascript
+{ }
+```
+
+The tag keys api returns:
+```javascript
+[
+    {"type":"string","text":"City"},
+    {"type":"string","text":"Country"}
+]
+```
+
+### Tag Values API
+
+Example request
+``` javascript
+{"key": "City"}
+```
+
+The tag values api returns:
+```javascript
+[
+    {'text': 'Eins!'},
+    {'text': 'Zwei'},
+    {'text': 'Drei!'}
+]
+```
+
 ### Dev setup
 
 This plugin requires node 6.10.0
@@ -169,6 +208,12 @@ This plugin requires node 6.10.0
 `npm run build`
 
 ### Changelog
+
+1.4.0
+
+- Support for adhoc filters:
+  - added tag-keys + tag-values api
+  - added adHocFilters parameter to query body
 
 1.3.5
 - Fix for dropdowns in query editor to allow writing template variables (broke due to change in Grafana).
