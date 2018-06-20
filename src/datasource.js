@@ -24,6 +24,12 @@ export class GenericDatasource {
       return this.q.when({data: []});
     }
 
+    if (this.templateSrv.getAdhocFilters) {
+      query.adhocFilters = this.templateSrv.getAdhocFilters(this.name);
+    } else {
+      query.adhocFilters = [];
+    }
+
     return this.doRequest({
       url: this.url + '/query',
       data: query,
@@ -114,4 +120,29 @@ export class GenericDatasource {
 
     return options;
   }
+
+  getTagKeys(options) {
+    return new Promise((resolve, reject) => {
+      this.doRequest({
+        url: this.url + '/tag-keys',
+        method: 'POST',
+        data: options
+      }).then(result => {
+        return resolve(result.data);
+      });
+    });
+  }
+
+  getTagValues(options) {
+    return new Promise((resolve, reject) => {
+      this.doRequest({
+        url: this.url + '/tag-values',
+        method: 'POST',
+        data: options
+      }).then(result => {
+        return resolve(result.data);
+      });
+    });
+  }
+
 }
