@@ -4,7 +4,7 @@ More documentation about datasource plugins can be found in the [Docs](https://g
 
 This also serves as a living example implementation of a datasource.
 
-Your backend needs to implement 4 urls:
+Your backend needs to implement 6 urls:
 
  * `/` should return 200 ok. Used for "Test connection" on the datasource config page.
  * `/search` used by the find metric options on the query tab in panels.
