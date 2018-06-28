@@ -5,6 +5,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.GenericDatasource = undefined;
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _lodash = require('lodash');
@@ -49,6 +51,18 @@ var GenericDatasource = exports.GenericDatasource = function () {
       } else {
         query.adhocFilters = [];
       }
+
+      var index = _lodash2.default.isUndefined(this.templateSrv.index) ? {} : this.templateSrv.index;
+      var variables = {};
+      Object.keys(index).forEach(function (key) {
+        var variable = index[key];
+        variables[variable.name] = {
+          text: variable.current.text,
+          value: variable.current.value
+        };
+      });
+
+      options.scopedVars = _extends({}, variables, options.scopedVars);
 
       return this.doRequest({
         url: this.url + '/query',

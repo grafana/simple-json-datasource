@@ -30,6 +30,18 @@ export class GenericDatasource {
       query.adhocFilters = [];
     }
 
+    const index = _.isUndefined(this.templateSrv.index) ? {} : this.templateSrv.index;
+    const variables = {};
+    Object.keys(index).forEach(function (key) {
+      const variable = index[key];
+      variables[variable.name] = {
+        text: variable.current.text,
+        value: variable.current.value
+      };
+    });
+
+    options.scopedVars = {...variables, ...options.scopedVars};
+
     return this.doRequest({
       url: this.url + '/query',
       data: query,
