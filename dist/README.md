@@ -31,7 +31,7 @@ information.
 
 ### Query API
 
-Example `timeserie` request
+Example `timeseries` request
 ``` javascript
 {
   "panelId": 1,
@@ -50,8 +50,8 @@ Example `timeserie` request
   "interval": "30s",
   "intervalMs": 30000,
   "targets": [
-     { "target": "upper_50", "refId": "A", "type": "timeserie" },
-     { "target": "upper_75", "refId": "B", "type": "timeserie" }
+     { "target": "upper_50", "refId": "A", "type": "timeseries" },
+     { "target": "upper_75", "refId": "B", "type": "timeseries" }
   ],
   "adhocFilters": [
     "key": "City"
@@ -63,7 +63,7 @@ Example `timeserie` request
 }
 ```
 
-Example `timeserie` response
+Example `timeseries` response
 ``` javascript
 [
   {
