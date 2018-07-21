@@ -107,9 +107,17 @@ export class GenericDatasource {
       return target.target !== 'select metric';
     });
 
-    var targets = _.map(options.targets, target => {
+
+    const targets = _.map(options.targets, target => {
+      let data = target.data;
+
+      if (data){
+        data = JSON.parse(data);
+      }
+
       return {
         target: this.templateSrv.replace(target.target, options.scopedVars, 'regex'),
+        data: data,
         refId: target.refId,
         hide: target.hide,
         type: target.type || 'timeseries'

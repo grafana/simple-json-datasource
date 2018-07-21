@@ -136,8 +136,15 @@ var GenericDatasource = exports.GenericDatasource = function () {
       });
 
       var targets = _lodash2.default.map(options.targets, function (target) {
+        var data = target.data;
+
+        if (data) {
+          data = JSON.parse(data);
+        }
+
         return {
           target: _this.templateSrv.replace(target.target, options.scopedVars, 'regex'),
+          data: data,
           refId: target.refId,
           hide: target.hide,
           type: target.type || 'timeseries'
