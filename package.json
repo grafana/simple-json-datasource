@@ -17,10 +17,6 @@
   "bugs": {
     "url": "https://github.com/grafana/simple-json-datasource/issues"
   },
-  "engines": {
-    "node": "6.10.0"
-  },
-  "engineStrict": true,
   "devDependencies": {
     "babel": "^6.23.0",
     "chai": "~3.5.0",
