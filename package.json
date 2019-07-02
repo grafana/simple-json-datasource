@@ -22,9 +22,7 @@
     "@grafana/toolkit": "next",
     "@grafana/ui": "next",
     "@types/grafana": "github:CorpGlory/types-grafana.git",
+    "@types/lodash": "^4.14.135",
     "lodash": "^4.17.4"
-  },
-  "dependencies": {
-    "@types/lodash": "^4.14.135"
   }
 }
