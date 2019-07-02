@@ -10,7 +10,7 @@ Your backend needs to implement 4 urls:
  * `/search` used by the find metric options on the query tab in panels.
  * `/query` should return metrics based on input.
  * `/annotations` should return annotations.
- 
+
 Those two urls are optional:
 
  * `/tag-keys` should return tag keys for ad hoc filters.
@@ -216,8 +216,11 @@ npm run build
 
 ### Changelog
 
-1.4.0
+1.5.0
+- converted to typescript
+- using @grafana/toolkit for build
 
+1.4.0
 - Support for adhoc filters:
   - added tag-keys + tag-values api
   - added adHocFilters parameter to query body
