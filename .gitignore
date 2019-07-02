@@ -1,6 +1,8 @@
 node_modules
 npm-debug.log
 coverage/
+dist/
+
 .aws-config.json
 awsconfig
 /emails/dist
