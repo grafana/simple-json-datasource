@@ -8,7 +8,7 @@ class GenericQueryOptionsCtrl {}
 GenericQueryOptionsCtrl.templateUrl = 'partials/query.options.html';
 
 class GenericAnnotationsQueryCtrl {}
-GenericAnnotationsQueryCtrl.templateUrl = 'partials/annotations.editor.html'
+GenericAnnotationsQueryCtrl.templateUrl = 'partials/annotations.editor.html';
 
 export {
   GenericDatasource as Datasource,

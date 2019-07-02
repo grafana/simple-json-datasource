@@ -17,7 +17,7 @@ export class GenericDatasource {
   }
 
   query(options) {
-    var query = this.buildQueryParameters(options);
+    let query = this.buildQueryParameters(options);
     query.targets = query.targets.filter(t => !t.hide);
 
     if (query.targets.length <= 0) {
@@ -49,8 +49,8 @@ export class GenericDatasource {
   }
 
   annotationQuery(options) {
-    var query = this.templateSrv.replace(options.annotation.query, {}, 'glob');
-    var annotationQuery = {
+    let query = this.templateSrv.replace(options.annotation.query, {}, 'glob');
+    let annotationQuery = {
       range: options.range,
       annotation: {
         name: options.annotation.name,
@@ -72,7 +72,7 @@ export class GenericDatasource {
   }
 
   metricFindQuery(query) {
-    var interpolated = {
+    let interpolated = {
         target: this.templateSrv.replace(query, null, 'regex')
     };
 
@@ -107,7 +107,7 @@ export class GenericDatasource {
       return target.target !== 'select metric';
     });
 
-    var targets = _.map(options.targets, target => {
+    let targets = _.map(options.targets, target => {
       return {
         target: this.templateSrv.replace(target.target, options.scopedVars, 'regex'),
         refId: target.refId,

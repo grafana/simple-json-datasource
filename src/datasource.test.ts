@@ -1,25 +1,25 @@
-import {Datasource} from "../module";
+import {Datasource} from "datasource";
 import Q from "q";
 
-describe('GenericDatasource', function() {
-    var ctx = {};
+describe('GenericDatasource', () => {
+    let ctx = {};
 
-    beforeEach(function() {
+    beforeEach(() => {
         ctx.$q = Q;
         ctx.backendSrv = {};
         ctx.templateSrv = {};
         ctx.ds = new Datasource({}, ctx.$q, ctx.backendSrv, ctx.templateSrv);
     });
 
-    it('should return an empty array when no targets are set', function(done) {
-        ctx.ds.query({targets: []}).then(function(result) {
+    it('should return an empty array when no targets are set', (done) => {
+        ctx.ds.query({targets: []}).then((result) => {
             expect(result.data).to.have.length(0);
             done();
         });
     });
 
-    it('should return the server results when a target is set', function(done) {
-        ctx.backendSrv.datasourceRequest = function(request) {
+    it('should return the server results when a target is set', (done) => {
+        ctx.backendSrv.datasourceRequest = (request) => {
             return ctx.$q.when({
                 _request: request,
                 data: [
@@ -31,22 +31,22 @@ describe('GenericDatasource', function() {
             });
         };
 
-        ctx.templateSrv.replace = function(data) {
+        ctx.templateSrv.replace = (data) => {
             return data;
-        }
+        };
 
-        ctx.ds.query({targets: ['hits']}).then(function(result) {
+        ctx.ds.query({targets: ['hits']}).then((result) => {
             expect(result._request.data.targets).to.have.length(1);
 
-            var series = result.data[0];
+            let series = result.data[0];
             expect(series.target).to.equal('X');
             expect(series.datapoints).to.have.length(3);
             done();
         });
     });
 
-    it ('should return the metric results when a target is null', function(done) {
-        ctx.backendSrv.datasourceRequest = function(request) {
+    it ('should return the metric results when a target is null', (done) => {
+        ctx.backendSrv.datasourceRequest = (request) => {
             return ctx.$q.when({
                 _request: request,
                 data: [
@@ -57,11 +57,11 @@ describe('GenericDatasource', function() {
             });
         };
 
-        ctx.templateSrv.replace = function(data) {
+        ctx.templateSrv.replace = (data) => {
             return data;
-        }
+        };
 
-        ctx.ds.metricFindQuery({target: null}).then(function(result) {
+        ctx.ds.metricFindQuery({target: null}).then((result) => {
             expect(result).to.have.length(3);
             expect(result[0].text).to.equal('metric_0');
             expect(result[0].value).to.equal('metric_0');
@@ -73,10 +73,10 @@ describe('GenericDatasource', function() {
         });
     });
 
-    it ('should return the metric target results when a target is set', function(done) {
-        ctx.backendSrv.datasourceRequest = function(request) {
-            var target = request.data.target;
-            var result = [target + "_0", target + "_1", target + "_2"];
+    it ('should return the metric target results when a target is set', (done) => {
+        ctx.backendSrv.datasourceRequest = (request) => {
+            let target = request.data.target;
+            let result = [target + "_0", target + "_1", target + "_2"];
 
             return ctx.$q.when({
                 _request: request,
@@ -84,11 +84,11 @@ describe('GenericDatasource', function() {
             });
         };
 
-        ctx.templateSrv.replace = function(data) {
+        ctx.templateSrv.replace = (data) => {
             return data;
-        }
+        };
 
-        ctx.ds.metricFindQuery('search').then(function(result) {
+        ctx.ds.metricFindQuery('search').then( (result) => {
             expect(result).to.have.length(3);
             expect(result[0].text).to.equal('search_0');
             expect(result[0].value).to.equal('search_0');
@@ -100,8 +100,8 @@ describe('GenericDatasource', function() {
         });
     });
 
-    it ('should return the metric results when the target is an empty string', function(done) {
-        ctx.backendSrv.datasourceRequest = function(request) {
+    it ('should return the metric results when the target is an empty string', (done) => {
+        ctx.backendSrv.datasourceRequest = (request) => {
             return ctx.$q.when({
                 _request: request,
                 data: [
@@ -112,11 +112,11 @@ describe('GenericDatasource', function() {
             });
         };
 
-        ctx.templateSrv.replace = function(data) {
+        ctx.templateSrv.replace = (data) => {
             return data;
-        }
+        };
 
-        ctx.ds.metricFindQuery('').then(function(result) {
+        ctx.ds.metricFindQuery('').then((result) => {
             expect(result).to.have.length(3);
             expect(result[0].text).to.equal('metric_0');
             expect(result[0].value).to.equal('metric_0');
@@ -128,8 +128,8 @@ describe('GenericDatasource', function() {
         });
     });
 
-    it ('should return the metric results when the args are an empty object', function(done) {
-        ctx.backendSrv.datasourceRequest = function(request) {
+    it ('should return the metric results when the args are an empty object', (done) => {
+        ctx.backendSrv.datasourceRequest = (request) => {
             return ctx.$q.when({
                 _request: request,
                 data: [
@@ -140,11 +140,11 @@ describe('GenericDatasource', function() {
             });
         };
 
-        ctx.templateSrv.replace = function(data) {
+        ctx.templateSrv.replace = (data) => {
             return data;
-        }
+        };
 
-        ctx.ds.metricFindQuery().then(function(result) {
+        ctx.ds.metricFindQuery().then( (result) => {
             expect(result).to.have.length(3);
             expect(result[0].text).to.equal('metric_0');
             expect(result[0].value).to.equal('metric_0');
@@ -156,10 +156,10 @@ describe('GenericDatasource', function() {
         });
     });
 
-    it ('should return the metric target results when the args are a string', function(done) {
-        ctx.backendSrv.datasourceRequest = function(request) {
-            var target = request.data.target;
-            var result = [target + "_0", target + "_1", target + "_2"];
+    it ('should return the metric target results when the args are a string', (done) => {
+        ctx.backendSrv.datasourceRequest = (request) => {
+            let target = request.data.target;
+            let result = [target + "_0", target + "_1", target + "_2"];
 
             return ctx.$q.when({
                 _request: request,
@@ -167,11 +167,11 @@ describe('GenericDatasource', function() {
             });
         };
 
-        ctx.templateSrv.replace = function(data) {
+        ctx.templateSrv.replace = (data) => {
             return data;
-        }
+        };
 
-        ctx.ds.metricFindQuery('search').then(function(result) {
+        ctx.ds.metricFindQuery('search').then( (result) => {
             expect(result).to.have.length(3);
             expect(result[0].text).to.equal('search_0');
             expect(result[0].value).to.equal('search_0');
@@ -183,8 +183,8 @@ describe('GenericDatasource', function() {
         });
     });
 
-    it ('should return data as text and as value', function(done) {
-        var result = ctx.ds.mapToTextValue({data: ["zero", "one", "two"]});
+    it ('should return data as text and as value', (done) => {
+        let result = ctx.ds.mapToTextValue({data: ["zero", "one", "two"]});
 
         expect(result).to.have.length(3);
         expect(result[0].text).to.equal('zero');
@@ -196,14 +196,14 @@ describe('GenericDatasource', function() {
         done();
     });
 
-    it ('should return text as text and value as value', function(done) {
-        var data = [
+    it ('should return text as text and value as value', (done) => {
+        let data = [
             {text: "zero", value: "value_0"},
             {text: "one", value: "value_1"},
             {text: "two", value: "value_2"},
         ];
 
-        var result = ctx.ds.mapToTextValue({data: data});
+        let result = ctx.ds.mapToTextValue({data: data});
 
         expect(result).to.have.length(3);
         expect(result[0].text).to.equal('zero');
@@ -215,14 +215,14 @@ describe('GenericDatasource', function() {
         done();
     });
 
-    it ('should return data as text and index as value', function(done) {
-        var data = [
+    it ('should return data as text and index as value', (done) => {
+        let data = [
             {a: "zero", b: "value_0"},
             {a: "one", b: "value_1"},
             {a: "two", b: "value_2"},
         ];
 
-        var result = ctx.ds.mapToTextValue({data: data});
+        let result = ctx.ds.mapToTextValue({data: data});
 
         expect(result).to.have.length(3);
         expect(result[0].text).to.equal(data[0]);
@@ -234,17 +234,17 @@ describe('GenericDatasource', function() {
         done();
     });
 
-    it('should support tag keys', function(done) {
-        var data =  [{'type': 'string', 'text': 'One', 'key': 'one'}, {'type': 'string', 'text': 'two', 'key': 'Two'}];
+    it('should support tag keys', (done) => {
+        let data =  [{'type': 'string', 'text': 'One', 'key': 'one'}, {'type': 'string', 'text': 'two', 'key': 'Two'}];
 
-        ctx.backendSrv.datasourceRequest = function(request) {
+        ctx.backendSrv.datasourceRequest = (request) => {
             return ctx.$q.when({
                 _request: request,
                 data: data
             });
         };
 
-        ctx.ds.getTagKeys().then(function(result) {
+        ctx.ds.getTagKeys().then((result) => {
             expect(result).to.have.length(2);
             expect(result[0].type).to.equal(data[0].type);
             expect(result[0].text).to.equal(data[0].text);
@@ -256,17 +256,17 @@ describe('GenericDatasource', function() {
         });
     });
 
-    it('should support tag values', function(done) {
-        var data =  [{'key': 'eins', 'text': 'Eins!'}, {'key': 'zwei', 'text': 'Zwei'}, {'key': 'drei', 'text': 'Drei!'}];
+    it('should support tag values', (done) => {
+        let data =  [{'key': 'eins', 'text': 'Eins!'}, {'key': 'zwei', 'text': 'Zwei'}, {'key': 'drei', 'text': 'Drei!'}];
 
-        ctx.backendSrv.datasourceRequest = function(request) {
+        ctx.backendSrv.datasourceRequest = (request) => {
             return ctx.$q.when({
                 _request: request,
                 data: data
             });
         };
 
-        ctx.ds.getTagValues().then(function(result) {
+        ctx.ds.getTagValues().then( (result) => {
             expect(result).to.have.length(3);
             expect(result[0].text).to.equal(data[0].text);
             expect(result[0].key).to.equal(data[0].key);

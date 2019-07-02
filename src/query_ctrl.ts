@@ -1,5 +1,5 @@
 import {QueryCtrl} from 'grafana/app/plugins/sdk';
-import './css/query-editor.css!'
+import './css/query-editor.css!';
 
 export class GenericDatasourceQueryCtrl extends QueryCtrl {
 
