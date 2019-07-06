@@ -5,9 +5,7 @@
   "scripts": {
     "build": "grafana-toolkit plugin:build",
     "dev": "grafana-toolkit plugin:dev",
-    "test": "grafana-toolkit plugin:test",
-    "test:coverage": "yarn test --coverage",
-    "test:badges": "yarn test:coverage && jest-coverage-badges"
+    "test": "grafana-toolkit plugin:test"
   },
   "repository": {
     "type": "git",

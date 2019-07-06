@@ -3,7 +3,8 @@ import {
   DataQueryRequest,
   DataQueryResponse,
   DataSourceApi,
-  DataSourceInstanceSettings
+  DataSourceInstanceSettings,
+  MetricFindValue
 } from '@grafana/ui';
 import { GenericQuery, GenericOptions } from './types';
 
@@ -89,7 +90,7 @@ export class GenericDatasource extends DataSourceApi<GenericQuery, GenericOption
     });
   }
 
-  metricFindQuery(query: string, options?: any): Promise<any[]> {
+  metricFindQuery(query: any, options?: any): Promise<MetricFindValue[]> {
     const interpolated = {
         target: this.templateSrv.replace(query, null, 'regex')
     };
@@ -139,7 +140,7 @@ export class GenericDatasource extends DataSourceApi<GenericQuery, GenericOption
     return options;
   }
 
-  getTagKeys(options: any) {
+  getTagKeys(options: any): Promise<MetricFindValue[]> {
     return new Promise((resolve, reject) => {
       this.doRequest({
         url: this.url + '/tag-keys',
@@ -151,7 +152,7 @@ export class GenericDatasource extends DataSourceApi<GenericQuery, GenericOption
     });
   }
 
-  getTagValues(options: any) {
+  getTagValues(options: any): Promise<MetricFindValue[]> {
     return new Promise((resolve, reject) => {
       this.doRequest({
         url: this.url + '/tag-values',
