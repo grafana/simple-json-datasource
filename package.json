@@ -17,9 +17,9 @@
     "url": "https://github.com/grafana/simple-json-datasource/issues"
   },
   "devDependencies": {
-    "@grafana/toolkit": "latest",
-    "@grafana/ui": "latest",
-    "@grafana/data": "latest",
+    "@grafana/toolkit": "next",
+    "@grafana/ui": "next",
+    "@grafana/data": "next",
     "@types/grafana": "github:CorpGlory/types-grafana.git",
     "@types/lodash": "^4.14.135",
     "lodash": "^4.17.4"
