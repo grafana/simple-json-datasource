@@ -1,0 +1,35 @@
+version: 2.1
+description: # Simple Build Step
+
+jobs:
+  build_frontend:
+    docker:
+      - image: circleci/node:10
+    working_directory: ~/plugin
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install yarn
+          command: |
+            sudo npm install -g yarn --quiet
+            yarn install --pure-lockfile
+      - run:
+          name: Run Toolkit Build
+          command: 'npx grafana-toolkit plugin:ci-build'
+      - run:
+          name: Bundle Distribution
+          command: 'npx grafana-toolkit plugin:ci-bundle'
+      - save_cache:
+          paths:
+            - node_modules
+          key: yarn-packages-{{ checksum "yarn.lock" }}
+      - store_artifacts:
+          path: work
+      - store_artifacts:
+          path: coverage
+      - store_artifacts:
+          path: artifacts
+

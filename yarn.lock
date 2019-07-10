@@ -714,9 +714,9 @@
   integrity sha512-SHvtDQuJ+LorjkF3bGkTdq2mCW2OmExhMlvhQRH+6qwbodoARqD/8X3dKFLw9D+PwW0H4nFYk2LQbdZKQXZRNw==
 
 "@grafana/toolkit@next":
-  version "6.3.0-alpha.39"
-  resolved "https://registry.yarnpkg.com/@grafana/toolkit/-/toolkit-6.3.0-alpha.39.tgz#94e6ecda836082cca9f13972c526873adb974a40"
-  integrity sha512-OQrNh6lJM717VouCsHQFfW7I3YFbh41UMPU76HsQaLdR6+A+kV5Wou8fHSALL8wUb+4NSb4JcHFC9yMh/cZhYA==
+  version "6.4.0-alpha.2"
+  resolved "https://registry.yarnpkg.com/@grafana/toolkit/-/toolkit-6.4.0-alpha.2.tgz#c0d7cabaeeeb992254dba10869fdf25fc7f342e2"
+  integrity sha512-jHscVt4EEF8DzX/fp/R4WKVtlAZoG2zdZeXObgUwOODtBiCP4zUB8vO/d/sxOFxpV5SqG3iDufB/cUGR8ySbRQ==
   dependencies:
     "@babel/core" "7.4.5"
     "@babel/preset-env" "7.4.5"
@@ -1178,9 +1178,9 @@
   integrity sha512-FwI9gX75FgVBJ7ywgnq/P7tw+/o1GUbtP0KzbtusLigAOgIgNISRK0ZPl4qertvXSIE8YbsVJueQ90cDt9YYyw==
 
 "@types/node@*", "@types/node@^12.0.4":
-  version "12.6.1"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.6.1.tgz#d5544f6de0aae03eefbb63d5120f6c8be0691946"
-  integrity sha512-rp7La3m845mSESCgsJePNL/JQyhkOJA6G4vcwvVgkDAwHhGdq5GCumxmPjEk1MZf+8p5ZQAUE7tqgQRQTXN7uQ==
+  version "12.6.2"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.6.2.tgz#a5ccec6abb6060d5f20d256fb03ed743e9774999"
+  integrity sha512-gojym4tX0FWeV2gsW4Xmzo5wxGjXGm550oVUII7f7G5o4BV6c7DBdiG1RRQd+y1bvqRyYtPfMK85UM95vsapqQ==
 
 "@types/prop-types@*":
   version "15.7.1"
@@ -1271,9 +1271,9 @@
     source-map "^0.6.1"
 
 "@types/webpack-dev-server@*":
-  version "3.1.6"
-  resolved "https://registry.yarnpkg.com/@types/webpack-dev-server/-/webpack-dev-server-3.1.6.tgz#a674bcdbe045390e6301977790d465f4aeb5b1c0"
-  integrity sha512-fysTHPetk7emf4XPj+GCbwGy56JTIUXWH7FuSABctCU2i+pczOD9bbUqd1+vT18WhqEqsr5v8SPshvm/FL3yDw==
+  version "3.1.7"
+  resolved "https://registry.yarnpkg.com/@types/webpack-dev-server/-/webpack-dev-server-3.1.7.tgz#a3e7a20366e68bc9853c730b56e994634cb78dac"
+  integrity sha512-VIRkDkBDuOkYRXQ1EG/etisQ3odo6pcjSmA1Si4VYANuNhSBsLxfuPGeGERwCx1nDKxK3aaXnicPzi0gUvxUaw==
   dependencies:
     "@types/connect-history-api-fallback" "*"
     "@types/express" "*"
@@ -2226,9 +2226,9 @@ caniuse-api@^3.0.0:
     lodash.uniq "^4.5.0"
 
 caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000939, caniuse-lite@^1.0.30000955, caniuse-lite@^1.0.30000980, caniuse-lite@^1.0.30000981:
-  version "1.0.30000981"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000981.tgz#5b6828803362363e5a1deba2eb550185cf6cec8f"
-  integrity sha512-JTByHj4DQgL2crHNMK6PibqAMrqqb/Vvh0JrsTJVSWG4VSUrT16EklkuRZofurlMjgA9e+zlCM4Y39F3kootMQ==
+  version "1.0.30000983"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000983.tgz#ab3c70061ca2a3467182a10ac75109b199b647f8"
+  integrity sha512-/llD1bZ6qwNkt41AsvjsmwNOoA4ZB+8iqmf5LVyeSXuBODT/hAMFNVOh84NdUzoiYiSKqo5vQ3ZzeYHSi/olDQ==
 
 capture-exit@^2.0.0:
   version "2.0.0"
@@ -5462,7 +5462,7 @@ locate-path@^3.0.0:
     p-locate "^3.0.0"
     path-exists "^3.0.0"
 
-lodash._reinterpolate@~3.0.0:
+lodash._reinterpolate@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/lodash._reinterpolate/-/lodash._reinterpolate-3.0.0.tgz#0ccf2d89166af03b3663c796538b75ac6e114d9d"
   integrity sha1-DM8tiRZq8Ds2Y8eWU4t1rG4RTZ0=
@@ -5488,29 +5488,34 @@ lodash.tail@^4.1.1:
   integrity sha1-0jM6NtnncXyK0vfKyv7HwytERmQ=
 
 lodash.template@^4.2.4:
-  version "4.4.0"
-  resolved "https://registry.yarnpkg.com/lodash.template/-/lodash.template-4.4.0.tgz#e73a0385c8355591746e020b99679c690e68fba0"
-  integrity sha1-5zoDhcg1VZF0bgILmWecaQ5o+6A=
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/lodash.template/-/lodash.template-4.5.0.tgz#f976195cf3f347d0d5f52483569fe8031ccce8ab"
+  integrity sha512-84vYFxIkmidUiFxidA/KjjH9pAycqW+h980j7Fuz5qxRtO9pgB7MDFTdys1N7A5mcucRiDyEq4fusljItR1T/A==
   dependencies:
-    lodash._reinterpolate "~3.0.0"
+    lodash._reinterpolate "^3.0.0"
     lodash.templatesettings "^4.0.0"
 
 lodash.templatesettings@^4.0.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/lodash.templatesettings/-/lodash.templatesettings-4.1.0.tgz#2b4d4e95ba440d915ff08bc899e4553666713316"
-  integrity sha1-K01OlbpEDZFf8IvImeRVNmZxMxY=
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/lodash.templatesettings/-/lodash.templatesettings-4.2.0.tgz#e481310f049d3cf6d47e912ad09313b154f0fb33"
+  integrity sha512-stgLz+i3Aa9mZgnjr/O+v9ruKZsPsndy7qPZOchbqk2cnTU1ZaldKK+v7m54WoKIyxiuMZTKT2H81F8BeAc3ZQ==
   dependencies:
-    lodash._reinterpolate "~3.0.0"
+    lodash._reinterpolate "^3.0.0"
 
 lodash.uniq@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
   integrity sha1-0CJTc662Uq3BvILklFM5qEJ1R3M=
 
-lodash@4.17.11, lodash@>4.17.4, lodash@^4.0.0, lodash@^4.0.1, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.4, lodash@^4.17.5, lodash@~4.17.10:
+lodash@4.17.11:
   version "4.17.11"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
   integrity sha512-cQKh8igo5QUhZ7lg38DYWAxMvjSAKG0A8wGSVimP07SIUEK2UO+arSRKbRZWtelMtN5V0Hkwh5ryOto/SshYIg==
+
+lodash@>4.17.4, lodash@^4.0.0, lodash@^4.0.1, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.4, lodash@^4.17.5, lodash@~4.17.10:
+  version "4.17.14"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.14.tgz#9ce487ae66c96254fe20b599f21b6816028078ba"
+  integrity sha512-mmKYbW3GLuJeX+iGP+Y7Gp1AiGHGbXHCOh/jZmrawMmsE7MS4znI3RL2FsjbqOyMayHInjOeykW7PEajUk1/xw==
 
 log-symbols@^2.2.0:
   version "2.2.0"
@@ -8162,9 +8167,9 @@ signal-exit@^3.0.0, signal-exit@^3.0.2:
   integrity sha1-tf3AjxKH6hF4Yo5BXiUTK3NkbG0=
 
 simple-git@^1.112.0:
-  version "1.119.0"
-  resolved "https://registry.yarnpkg.com/simple-git/-/simple-git-1.119.0.tgz#283e07452ff3f2a6b7c354e5f1c79ab7c42b52db"
-  integrity sha512-SV2rTeVYKVSPsG3SZgu0tc4YedWL+/GzUx+iZwQyMXulIRX9R1BHvIcf8d1gpmjDahrfjDlngHJU9K3VZYm3gQ==
+  version "1.120.0"
+  resolved "https://registry.yarnpkg.com/simple-git/-/simple-git-1.120.0.tgz#3323a763ee88f9733bd928a65cb6eb2982f64c53"
+  integrity sha512-caF3eLrUSrL6d5fBVU85bmY0lpbMpbkWze1W2Tg946kN75s/WWvKqpc4Agn3DLHyzXEeiWfv8yPULiCKumuIQg==
   dependencies:
     debug "^4.0.1"
 

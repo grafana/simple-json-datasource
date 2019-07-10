@@ -2,6 +2,7 @@ node_modules
 npm-debug.log
 coverage/
 dist/
+work/
 
 .aws-config.json
 awsconfig
