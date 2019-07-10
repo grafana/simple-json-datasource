@@ -708,10 +708,10 @@
   resolved "https://registry.yarnpkg.com/@emotion/utils/-/utils-0.8.2.tgz#576ff7fb1230185b619a75d258cbc98f0867a8dc"
   integrity sha512-rLu3wcBWH4P5q1CGoSSH/i9hrXs7SlbRLkoq9IGuoPYNGQvDJ3pt/wmOM+XgYjIDRMVIdkUWt0RsfzF50JfnCw==
 
-"@grafana/data@next":
-  version "6.3.0-alpha.39"
-  resolved "https://registry.yarnpkg.com/@grafana/data/-/data-6.3.0-alpha.39.tgz#1c84b5a33ac7bbfb3d4c7f636b263a1fe49e9f9b"
-  integrity sha512-5zrAqww1br9fPsFPZcyO0kzs/glXpvumh8HXWtfYl8ggY6gXMr7a2eXmUd/96jUIzu9GIqo58cJqzsl3BEA56A==
+"@grafana/data@latest":
+  version "6.3.0-alpha.32"
+  resolved "https://registry.yarnpkg.com/@grafana/data/-/data-6.3.0-alpha.32.tgz#5445cbda9a3c113005378236683876377a41a50f"
+  integrity sha512-SHvtDQuJ+LorjkF3bGkTdq2mCW2OmExhMlvhQRH+6qwbodoARqD/8X3dKFLw9D+PwW0H4nFYk2LQbdZKQXZRNw==
 
 "@grafana/toolkit@next":
   version "6.3.0-alpha.39"
@@ -772,10 +772,10 @@
     url-loader "^2.0.1"
     webpack "4.35.0"
 
-"@grafana/ui@next":
-  version "6.3.0-alpha.39"
-  resolved "https://registry.yarnpkg.com/@grafana/ui/-/ui-6.3.0-alpha.39.tgz#5fb988927dd6d2ba8fa8a0d9bcedb270d2a90f83"
-  integrity sha512-GNhoNj8Jj6dJQbzY547Cycqf4XZLNwkHxPOz2rJilbbqZaoZkhiyR+j8Z0QcCy7OFJ78xQ5XHAz5SbFB759NEA==
+"@grafana/ui@latest":
+  version "6.3.0-alpha.32"
+  resolved "https://registry.yarnpkg.com/@grafana/ui/-/ui-6.3.0-alpha.32.tgz#2e7711d79bb0c264537113b6c68256ab95bd5704"
+  integrity sha512-orSy3QiHJM2FyytMDP5HAR5Any2mQF8lhdbXtEWs1+WRZpbAmIDjhtqovIATBStmtOMx7zSNfGy1f9eNbPplEQ==
   dependencies:
     "@torkelo/react-select" "2.1.1"
     "@types/react-color" "2.17.0"
