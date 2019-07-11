@@ -29,5 +29,5 @@ jobs:
       - store_artifacts:
           path: ci/artifacts
       - store_artifacts:
-          path: ci/jobs/*/coverage
+          path: ci/jobs/build/coverage
 
