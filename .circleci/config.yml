@@ -27,5 +27,7 @@ jobs:
             - node_modules
           key: yarn-packages-{{ checksum "yarn.lock" }}
       - store_artifacts:
-          path: ci
+          path: ci/artifacts
+      - store_artifacts:
+          path: ci/jobs/*/coverage
 
