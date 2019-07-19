@@ -1,8 +1,8 @@
 version: 2.1
-description: # Simple Build Step
+description: # Reusable Plugin Pipeline
 
 jobs:
-  build:
+  build_plugin:
     docker:
       - image: circleci/node:10
     working_directory: ~/plugin
@@ -19,15 +19,223 @@ jobs:
       - run:
           name: Run Toolkit Build
           command: 'npx grafana-toolkit plugin:ci-build'
-      - run:
-          name: Bundle Distribution
-          command: 'npx grafana-toolkit plugin:ci-bundle'
       - save_cache:
           paths:
             - node_modules
           key: yarn-packages-{{ checksum "yarn.lock" }}
-      - store_artifacts:
-          path: ci/artifacts
-      - store_artifacts:
-          path: ci/jobs/build/coverage
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ci
 
+  build_linux_x64:
+    docker:
+      - image: circleci/node:10
+    working_directory: ~/plugin
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install yarn
+          command: |
+            sudo npm install -g yarn --quiet
+            yarn install --pure-lockfile
+      - run:
+          name: Run Toolkit CI
+          command: 'npx grafana-toolkit plugin:ci-build --backend linux_x64'
+      - save_cache:
+          paths:
+            - node_modules
+          key: yarn-packages-{{ checksum "yarn.lock" }}
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ci
+
+  build_osx:
+    docker:
+      - image: circleci/node:10
+    working_directory: ~/plugin
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install yarn
+          command: |
+            sudo npm install -g yarn --quiet
+            yarn install --pure-lockfile
+      - run:
+          name: Run Toolkit CI
+          command: 'npx grafana-toolkit plugin:ci-build --backend osx'
+      - save_cache:
+          paths:
+            - node_modules
+          key: yarn-packages-{{ checksum "yarn.lock" }}
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ci/jobs/build_osx
+
+  build_win64:
+    docker:
+      - image: circleci/node:10
+    working_directory: ~/plugin
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install yarn
+          command: |
+            sudo npm install -g yarn --quiet
+            yarn install --pure-lockfile
+      - run:
+          name: Run Toolkit CI
+          command: 'npx grafana-toolkit plugin:ci-build --backend win64'
+      - save_cache:
+          paths:
+            - node_modules
+          key: yarn-packages-{{ checksum "yarn.lock" }}
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ci/jobs/build_win64
+
+  package:
+    docker:
+      - image: circleci/node:10
+    working_directory: ~/plugin
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - restore_cache:
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
+      - run:
+          name: Package Distribution
+          command: 'npx grafana-toolkit plugin:ci-package'
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ci/jobs/package
+            - ci/packages
+            - ci/dist
+            - ci/grafana-test-env
+
+  test_master:
+    docker:
+      - image: circleci/node:10-browsers
+    working_directory: ~/plugin
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - restore_cache:
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
+      - run:
+          name: Setup Grafana (local install)
+          command: |
+            wget https://dl.grafana.com/oss/release/grafana_6.2.5_amd64.deb
+            sudo apt-get install -y adduser libfontconfig1
+            sudo dpkg -i grafana_6.2.5_amd64.deb
+            sudo apt-get install locate
+            sudo updatedb
+            sudo locate grafana
+            sudo cat /etc/grafana/grafana.ini
+            sudo echo ------------------------
+            sudo cp ci/grafana-test-env/custom.ini /usr/share/grafana/conf/custom.ini
+            sudo cp ci/grafana-test-env/custom.ini /etc/grafana/grafana.ini
+            sudo service grafana-server start
+            sudo grafana-cli --version
+
+      - run:
+          name: Run e2e tests
+          command: |
+            npx grafana-toolkit plugin:ci-test
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ci/jobs/test_master
+
+  test_latest:
+    docker:
+      - image: circleci/node:10-browsers
+    working_directory: ~/plugin
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - restore_cache:
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
+      - run:
+          name: Setup Grafana (local install)
+          command: |
+            wget https://dl.grafana.com/oss/release/grafana_6.3.0-beta1_amd64.deb
+            sudo apt-get install -y adduser libfontconfig1
+            sudo dpkg -i grafana_6.3.0-beta1_amd64.deb
+            sudo apt-get install locate
+            sudo updatedb
+            sudo locate grafana
+            sudo cat /etc/grafana/grafana.ini
+            sudo echo ------------------------
+            sudo cp ci/grafana-test-env/custom.ini /usr/share/grafana/conf/custom.ini
+            sudo cp ci/grafana-test-env/custom.ini /etc/grafana/grafana.ini
+            sudo service grafana-server start
+            sudo grafana-cli --version
+
+      - run:
+          name: Run e2e tests
+          command: |
+            npx grafana-toolkit plugin:ci-test
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ci/jobs/test_latest
+
+  report:
+    docker:
+      - image: circleci/node:10
+    working_directory: ~/plugin
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - restore_cache:
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
+      - run:
+          name: Toolkit Report
+          command: 'npx grafana-toolkit plugin:ci-report'
+      - store_artifacts:
+          path: ci
+
+workflows:
+  version: 2
+  plugin_workflow:
+    jobs:
+      - build_plugin
+      - build_osx
+      - build_win64
+      - package:
+          requires:
+            - build_plugin
+            - build_osx
+            - build_win64
+      - test_master:
+          requires:
+            - package
+      - test_latest:
+          requires:
+            - package
+      - report:
+          requires:
+            - test_master
+            - test_latest
