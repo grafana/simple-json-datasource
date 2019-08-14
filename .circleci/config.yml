@@ -219,15 +219,9 @@ workflows:
   plugin_workflow:
     jobs:
     - build_plugin
-    - build_osx
-    - build_win64
-    - build_docs
     - package:
         requires:
         - build_plugin
-        - build_osx
-        - build_win64
-        - build_docs
     - test_6_2_5:
         requires:
         - package
