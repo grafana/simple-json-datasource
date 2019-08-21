@@ -708,25 +708,25 @@
   resolved "https://registry.yarnpkg.com/@emotion/utils/-/utils-0.8.2.tgz#576ff7fb1230185b619a75d258cbc98f0867a8dc"
   integrity sha512-rLu3wcBWH4P5q1CGoSSH/i9hrXs7SlbRLkoq9IGuoPYNGQvDJ3pt/wmOM+XgYjIDRMVIdkUWt0RsfzF50JfnCw==
 
-"@grafana/data@6.4.0-alpha.44-faabb839e", "@grafana/data@^6.4.0-alpha.44-faabb839e":
-  version "6.4.0-alpha.44-faabb839e"
-  resolved "https://registry.yarnpkg.com/@grafana/data/-/data-6.4.0-alpha.44-faabb839e.tgz#79a649c3852f16fdc7fcae5110fa1033a47161bf"
-  integrity sha512-vccHIueVY239Vyw71lM9O1UDfLjg1BG9VS2u5X4ntchUQ//j9EhUW5uKFDZYefmCo7kpPRuNSYTjG/XKOTV/sA==
+"@grafana/data@6.4.0-alpha.44-6c34936ae", "@grafana/data@next":
+  version "6.4.0-alpha.44-6c34936ae"
+  resolved "https://registry.yarnpkg.com/@grafana/data/-/data-6.4.0-alpha.44-6c34936ae.tgz#d966f91cf005b0fbc093c5c6bcdf99772794c258"
+  integrity sha512-uj1Q9CxnKScNItMQnI2Yrg8wRX8eHatx/Rp99ROvDYo5OIQEP95uRGYV3qSZKGjSiuKDVLpSF5ApXC2JsCZbPQ==
 
-"@grafana/data@latest":
-  version "6.3.2"
-  resolved "https://registry.yarnpkg.com/@grafana/data/-/data-6.3.2.tgz#9e2efe345a9d941247fb373ba5142a1c70911446"
-  integrity sha512-2i0qVvjpeCq1yUMj8q4AgU/Mx5qiRwnex4Qvelt2zL/ADZI3n9rHIV8RF59N3ur+/+22KuzU3WJkqUK21QSuyg==
+"@grafana/data@6.4.0-alpha.44-ead2d6e88", "@grafana/data@^6.4.0-alpha.44-6c34936ae":
+  version "6.4.0-alpha.44-ead2d6e88"
+  resolved "https://registry.yarnpkg.com/@grafana/data/-/data-6.4.0-alpha.44-ead2d6e88.tgz#93bde7f2ab735d2053b8da5614249a6edce02250"
+  integrity sha512-1Ius7zPKcWFAtZk87IoZggUP4rqQcHF/ycsDt6lhxEyoQFCTtpgHx8WWAkraycWvjyOMG5yti9wCbls+SPdYjw==
 
 "@grafana/toolkit@next":
-  version "6.4.0-alpha.44-faabb839e"
-  resolved "https://registry.yarnpkg.com/@grafana/toolkit/-/toolkit-6.4.0-alpha.44-faabb839e.tgz#b5a98df493afe706917627e26af90e3b7e63557e"
-  integrity sha512-G3Ky3Z2v3Pn/iz/blQCg7b/7VeVa196DD7cWJajn+l+Qz4eS7pSmBOGhXGimwBd/xM027YWqdWxqUmBlQbAgVQ==
+  version "6.4.0-alpha.44-6c34936ae"
+  resolved "https://registry.yarnpkg.com/@grafana/toolkit/-/toolkit-6.4.0-alpha.44-6c34936ae.tgz#cc305671a50a5cd4c878b7f85ad578229bde4bb3"
+  integrity sha512-85CG+iOIiWmwLeCP0ItWXhdEbUqvvsgxMWTlPJW6lnv1EJXMFZmt4CaFQgIgQo5WnrF9FtgEYeZR7wCw1ak9Iw==
   dependencies:
     "@babel/core" "7.4.5"
     "@babel/preset-env" "7.4.5"
-    "@grafana/data" "^6.4.0-alpha.44-faabb839e"
-    "@grafana/ui" "^6.4.0-alpha.44-faabb839e"
+    "@grafana/data" "^6.4.0-alpha.44-6c34936ae"
+    "@grafana/ui" "^6.4.0-alpha.44-6c34936ae"
     "@types/execa" "^0.9.0"
     "@types/expect-puppeteer" "3.3.1"
     "@types/inquirer" "^6.0.3"
@@ -789,12 +789,12 @@
     url-loader "^2.0.1"
     webpack "4.35.0"
 
-"@grafana/ui@^6.4.0-alpha.44-faabb839e":
-  version "6.4.0-alpha.44-faabb839e"
-  resolved "https://registry.yarnpkg.com/@grafana/ui/-/ui-6.4.0-alpha.44-faabb839e.tgz#e13aacd6e3da7b1188faa7378eb1b644a91de951"
-  integrity sha512-wcb93SFFeKGdA6Varx3PkYguohvWl2J98mymZTBny6algw9tpZ2DqLFQ7XrMgxkPA8ADbucaWPUel5G/e56tlQ==
+"@grafana/ui@^6.4.0-alpha.44-6c34936ae":
+  version "6.4.0-alpha.44-ead2d6e88"
+  resolved "https://registry.yarnpkg.com/@grafana/ui/-/ui-6.4.0-alpha.44-ead2d6e88.tgz#78b56b5c47718c1b8bb19e476155e07b9d9d977b"
+  integrity sha512-fepw+yuoCkvv9ec4UEHFOZ208FXRC5/q42FJEt7pZVS3jwqDPfx31iPMDayWri214zSdkKqkbHNv7NkAEZqupw==
   dependencies:
-    "@grafana/data" "6.4.0-alpha.44-faabb839e"
+    "@grafana/data" "6.4.0-alpha.44-ead2d6e88"
     "@torkelo/react-select" "2.1.1"
     "@types/react-color" "2.17.0"
     classnames "2.2.6"
@@ -815,17 +815,18 @@
     react-virtualized "9.21.0"
     tinycolor2 "1.4.1"
 
-"@grafana/ui@latest":
-  version "6.3.2"
-  resolved "https://registry.yarnpkg.com/@grafana/ui/-/ui-6.3.2.tgz#e35be6ff7beaafec6ca4902869f99768c3a2b377"
-  integrity sha512-u4A56vcFkSy11KvXSCbs2x2miHq+zek8Rfk3w4HL1SD3nmfPqjuKqmv///UBTMOlN6/ZXdD1qyvaHWMhaYostA==
+"@grafana/ui@next":
+  version "6.4.0-alpha.44-6c34936ae"
+  resolved "https://registry.yarnpkg.com/@grafana/ui/-/ui-6.4.0-alpha.44-6c34936ae.tgz#f70e108ce622d9cd5c5a4a4d088491c882275e63"
+  integrity sha512-9Kqc64yI1bdv0Q2ASnKKhLJD50ONCe0pn+c+SZein27YHXVmUHbefOngS74pwsIhaHnQ0hDnND34GTNZusUf+Q==
   dependencies:
+    "@grafana/data" "6.4.0-alpha.44-6c34936ae"
     "@torkelo/react-select" "2.1.1"
     "@types/react-color" "2.17.0"
     classnames "2.2.6"
     d3 "5.9.1"
     jquery "3.4.1"
-    lodash "4.17.11"
+    lodash "4.17.14"
     moment "2.24.0"
     papaparse "4.6.3"
     react "16.8.6"
@@ -1134,7 +1135,7 @@
 
 "@types/grafana@github:CorpGlory/types-grafana.git":
   version "4.6.3"
-  resolved "https://codeload.github.com/CorpGlory/types-grafana/tar.gz/cb727a51638566747a308b27c938e503c50080ab"
+  resolved "https://codeload.github.com/CorpGlory/types-grafana/tar.gz/3f852df0792e52cd5239929b432e2ca2380faf95"
 
 "@types/html-minifier@*":
   version "3.5.3"
@@ -1872,9 +1873,9 @@ autoprefixer@^9.4.9:
     postcss-value-parser "^4.0.0"
 
 aws-sdk@^2.495.0:
-  version "2.514.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.514.0.tgz#fe1cc76eb93982b3d6062866a1bc0fd501a02ee5"
-  integrity sha512-QKfmUJhn8iapnmx1pc86zLuJIKj5ereMz/ujjaFxMl6zKyypzdMJbNcZQHSqyQyVoU/EDsHt838L4sWbwVLCNQ==
+  version "2.515.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.515.0.tgz#5c433a722fbe5865301bd9c8ff7f1be0c8ba9997"
+  integrity sha512-ek/mSJIjJEQpUJTyl9uFw+mENcpTb/InThEKiDKBYoCSvJVPbkxcke9GYvb+1nyL0B+WJbPmboFpFm6r06pjrg==
   dependencies:
     buffer "4.9.1"
     events "1.1.1"
@@ -2417,9 +2418,9 @@ chardet@^0.7.0:
   integrity sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA==
 
 chokidar@^2.0.2, chokidar@^2.0.4:
-  version "2.1.6"
-  resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-2.1.6.tgz#b6cad653a929e244ce8a834244164d241fa954c5"
-  integrity sha512-V2jUo67OKkc6ySiRpJrjlpJKl9kDuG+Xb8VgsGzb+aEouhgS1D0weyPU4lEzdAcsCAvrih2J2BqyXqHWvVLw5g==
+  version "2.1.8"
+  resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-2.1.8.tgz#804b3a7b6a99358c3c5c61e71d8728f041cff917"
+  integrity sha512-ZmZUazfOzf0Nve7duiCKD23PFSCs4JPoYyccjUFF3aQkQadqBhfzhjkwBH2mNOG9cTBwhamM37EIsIkZw3nRgg==
   dependencies:
     anymatch "^2.0.0"
     async-each "^1.0.1"
@@ -3084,9 +3085,9 @@ d3-axis@1:
   integrity sha512-ejINPfPSNdGFKEOAtnBtdkpr24c4d4jsei6Lg98mxf424ivoDP2956/5HDpIAtmHo85lqT4pruy+zEgvRUBqaQ==
 
 d3-brush@1:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/d3-brush/-/d3-brush-1.1.2.tgz#1d45941457d6903a1924f5c56c60363fed0e7bc9"
-  integrity sha512-0cQBYrlKqLevZZaRE5Hh3W5FGp3c9gvUyJZm3B0Z3iAM3aSkEXt7F+4+vYyJoaL6vEipVM511rMqO3lD6ShyRA==
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/d3-brush/-/d3-brush-1.1.3.tgz#a04900a71fa5390f7f7afe1504b02a382709f380"
+  integrity sha512-v8bbYyCFKjyCzFk/tdWqXwDykY8YWqhXYjcYxfILIit085VZOpj4XJKOMccTsvWxgzSLMJQg5SiqHjslsipEDg==
   dependencies:
     d3-dispatch "1"
     d3-drag "1"
@@ -3208,9 +3209,9 @@ d3-random@1:
   integrity sha512-6AK5BNpIFqP+cx/sreKzNjWbwZQCSUatxq+pPRmFIQaWuoD+NrbVWw7YWpHiXpCQ/NanKdtGDuB+VQcZDaEmYQ==
 
 d3-scale-chromatic@1:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/d3-scale-chromatic/-/d3-scale-chromatic-1.4.0.tgz#f5b945edb5be8285b8bb76ad171f39ef479afcde"
-  integrity sha512-0vyEt8ZqhdgzC+IvdkJZL7fc3k7UZyJvMxR3zvU312z/HilJ0N+WSY3099jAxdfhe99ak9VhcK1ChDVVGc8Q0Q==
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/d3-scale-chromatic/-/d3-scale-chromatic-1.5.0.tgz#54e333fc78212f439b14641fb55801dd81135a98"
+  integrity sha512-ACcL46DYImpRFMBcpk9HhtIyC7bTBR4fNOPxwVSl0LfulDAwyiHyPOTqcDG1+t5d4P9W7t/2NAuWu59aKko/cg==
   dependencies:
     d3-color "1"
     d3-interpolate "1"
@@ -3613,9 +3614,9 @@ ecc-jsbn@~0.1.1:
     safer-buffer "^2.1.0"
 
 electron-to-chromium@^1.3.191:
-  version "1.3.236"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.236.tgz#c7158cbd4d17a3670ac7c9b44da44d752aa193a9"
-  integrity sha512-LWOvuJ80pLO3FtFqTcGuXB0dxdMtzSCkRmbXdY5mHUvXRQGor3sTVmyfU70aD2yF5i+fbHz52ncWr5T3xUYHlA==
+  version "1.3.237"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.237.tgz#39c5d1da59d6fd16ff705b97e772bb3b5dfda7e4"
+  integrity sha512-SPAFjDr/7iiVK2kgTluwxela6eaWjjFkS9rO/iYpB/KGXgccUom5YC7OIf19c8m8GGptWxLU0Em8xM64A/N7Fg==
 
 elliptic@^6.0.0:
   version "6.5.0"
@@ -5825,11 +5826,6 @@ lodash.uniq@^4.5.0:
   resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
   integrity sha1-0CJTc662Uq3BvILklFM5qEJ1R3M=
 
-lodash@4.17.11:
-  version "4.17.11"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
-  integrity sha512-cQKh8igo5QUhZ7lg38DYWAxMvjSAKG0A8wGSVimP07SIUEK2UO+arSRKbRZWtelMtN5V0Hkwh5ryOto/SshYIg==
-
 lodash@4.17.14:
   version "4.17.14"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.14.tgz#9ce487ae66c96254fe20b599f21b6816028078ba"
@@ -6359,9 +6355,9 @@ node-pre-gyp@^0.12.0:
     tar "^4"
 
 node-releases@^1.1.25:
-  version "1.1.27"
-  resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-1.1.27.tgz#b19ec8add2afe9a826a99dceccc516104c1edaf4"
-  integrity sha512-9iXUqHKSGo6ph/tdXVbHFbhRVQln4ZDTIBJCzsa90HimnBYc5jw8RWYt4wBYFHehGyC3koIz5O4mb2fHrbPOuA==
+  version "1.1.28"
+  resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-1.1.28.tgz#503c3c70d0e4732b84e7aaa2925fbdde10482d4a"
+  integrity sha512-AQw4emh6iSXnCpDiFe0phYcThiccmkNWMZnFZ+lDJjAP8J0m2fVd59duvUUyuTirQOhIAajTFkzG6FHCLBO59g==
   dependencies:
     semver "^5.3.0"
 

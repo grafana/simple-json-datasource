@@ -18,8 +18,8 @@
   },
   "devDependencies": {
     "@grafana/toolkit": "next",
-    "@grafana/ui": "latest",
-    "@grafana/data": "latest",
+    "@grafana/ui": "next",
+    "@grafana/data": "next",
     "@types/grafana": "github:CorpGlory/types-grafana.git",
     "@types/lodash": "^4.14.135",
     "lodash": "^4.17.4"
