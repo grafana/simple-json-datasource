@@ -25,7 +25,7 @@ type JsonDatasource struct {
 	logger hclog.Logger
 }
 
-func (t *JsonDatasource) Query(ctx context.Context, tsdbReq *datasource.DatasourceRequest) (*datasource.DatasourceResponse, error) {
+func (t *JsonDatasource) Query(ctx context.Context, tsdbReq *datasource.DatasourceRequest, api datasource.GrafanaAPI) (*datasource.DatasourceResponse, error) {
 	t.logger.Debug("Query", "datasource", tsdbReq.Datasource.Name, "TimeRange", tsdbReq.TimeRange)
 
 	remoteDsReq, err := t.createRequest(tsdbReq)

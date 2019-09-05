@@ -6,7 +6,7 @@ github.com/golang/protobuf/ptypes
 github.com/golang/protobuf/ptypes/any
 github.com/golang/protobuf/ptypes/duration
 github.com/golang/protobuf/ptypes/timestamp
-# github.com/grafana/grafana-plugin-model v0.0.0-20180518082423-84176c64269d
+# github.com/grafana/grafana-plugin-model v0.0.0-20190905222103-7663311f6fbc
 github.com/grafana/grafana-plugin-model/go/datasource
 # github.com/hashicorp/go-hclog v0.0.0-20180402200405-69ff559dc25f
 github.com/hashicorp/go-hclog
@@ -18,7 +18,7 @@ github.com/hashicorp/yamux
 github.com/mitchellh/go-testing-interface
 # github.com/oklog/run v1.0.0
 github.com/oklog/run
-# golang.org/x/net v0.0.0-20180530144021-8d282c4e200f
+# golang.org/x/net v0.0.0-20180511174649-2491c5de3490
 golang.org/x/net/context
 golang.org/x/net/context/ctxhttp
 golang.org/x/net/http2
@@ -32,16 +32,15 @@ golang.org/x/text/secure/bidirule
 golang.org/x/text/unicode/bidi
 golang.org/x/text/unicode/norm
 golang.org/x/text/transform
-# google.golang.org/genproto v0.0.0-20180523212516-694d95ba50e6
+# google.golang.org/genproto v0.0.0-20180514194645-7bb2a897381c
 google.golang.org/genproto/googleapis/rpc/status
-# google.golang.org/grpc v1.12.0
+# google.golang.org/grpc v1.11.1
 google.golang.org/grpc
 google.golang.org/grpc/credentials
 google.golang.org/grpc/health
 google.golang.org/grpc/health/grpc_health_v1
 google.golang.org/grpc/balancer
 google.golang.org/grpc/balancer/roundrobin
-google.golang.org/grpc/channelz
 google.golang.org/grpc/codes
 google.golang.org/grpc/connectivity
 google.golang.org/grpc/encoding

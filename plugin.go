@@ -23,7 +23,7 @@ func main() {
 			MagicCookieValue: "datasource",
 		},
 		Plugins: map[string]plugin.Plugin{
-			"backend-datasource": &datasource.DatasourcePluginImpl{Plugin: &JsonDatasource{
+			"backend-datasource": &datasource.DatasourcePluginImpl{Impl: &JsonDatasource{
 				logger: pluginLogger,
 			}},
 		},
