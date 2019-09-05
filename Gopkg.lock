@@ -21,7 +21,7 @@
 
 [[projects]]
   branch = "renderer"
-  name = "github.com/grafana/grafana_plugin_model"
+  name = "github.com/grafana/grafana-plugin-model"
   packages = ["go/datasource"]
   revision = "84176c64269d8060f99e750ee8aba6f062753336"
 

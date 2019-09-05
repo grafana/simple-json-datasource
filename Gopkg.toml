@@ -27,7 +27,7 @@
 
 [[constraint]]
   branch = "renderer"
-  name = "github.com/grafana/grafana_plugin_model"
+  name = "github.com/grafana/grafana-plugin-model"
 
 [[constraint]]
   branch = "master"
