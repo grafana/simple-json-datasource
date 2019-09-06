@@ -6,7 +6,7 @@ github.com/golang/protobuf/ptypes
 github.com/golang/protobuf/ptypes/any
 github.com/golang/protobuf/ptypes/duration
 github.com/golang/protobuf/ptypes/timestamp
-# github.com/grafana/grafana-plugin-model v0.0.0-20190905222103-7663311f6fbc
+# github.com/grafana/grafana-plugin-model v0.0.0-20190906002829-a7284adfb995
 github.com/grafana/grafana-plugin-model/go/datasource
 # github.com/hashicorp/go-hclog v0.0.0-20180402200405-69ff559dc25f
 github.com/hashicorp/go-hclog

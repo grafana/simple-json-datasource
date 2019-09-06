@@ -15,10 +15,12 @@ type GRPCClient struct {
 }
 
 func (m *GRPCClient) Query(ctx context.Context, req *DatasourceRequest, api GrafanaAPI) (*DatasourceResponse, error) {
+	apiServer := &GRPCGrafanaAPIServer{Impl: api}
+
 	var s *grpc.Server
 	serverFunc := func(opts []grpc.ServerOption) *grpc.Server {
 		s = grpc.NewServer(opts...)
-		RegisterGrafanaAPIServer(s, api)
+		RegisterGrafanaAPIServer(s, apiServer)
 
 		return s
 	}
@@ -26,6 +28,7 @@ func (m *GRPCClient) Query(ctx context.Context, req *DatasourceRequest, api Graf
 	brokerID := m.broker.NextId()
 	go m.broker.AcceptAndServe(brokerID, serverFunc)
 
+	req.RequestId = brokerID
 	res, err := m.client.Query(ctx, req)
 
 	s.Stop()
@@ -59,4 +62,17 @@ func (m *GRPCGrafanaAPIClient) QueryDatasource(ctx context.Context, req *QueryDa
 		return nil, err
 	}
 	return resp, err
+}
+
+// GRPCGrafanaAPIServer is the gRPC server that GRPCGrafanaAPIClient talks to.
+type GRPCGrafanaAPIServer struct {
+	Impl GrafanaAPI
+}
+
+func (m *GRPCGrafanaAPIServer) QueryDatasource(ctx context.Context, req *QueryDatasourceRequest) (*QueryDatasourceResponse, error) {
+	resp, err := m.Impl.QueryDatasource(ctx, req)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
 }

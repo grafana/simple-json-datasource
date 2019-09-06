@@ -21,13 +21,13 @@ type DatasourcePlugin interface {
 // In addition, it also implements plugin.GRPCPlugin so that the it can be served over gRPC.
 type DatasourcePluginImpl struct {
 	plugin.NetRPCUnsupportedPlugin
-	Impl DatasourcePlugin
+	Plugin DatasourcePlugin
 }
 
 func (p *DatasourcePluginImpl) GRPCServer(broker *plugin.GRPCBroker, s *grpc.Server) error {
 	RegisterDatasourcePluginServer(s, &GRPCServer{
 		broker: broker,
-		Impl:   p.Impl,
+		Impl:   p.Plugin,
 	})
 	return nil
 }

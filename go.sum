@@ -9,8 +9,8 @@ github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b/go.mod h1:SBH7ygxi8pfU
 github.com/golang/protobuf v0.0.0-20180511221637-927b65914520/go.mod h1:6lQm79b+lXiMfvg/cZm0SGofjICqVBUtrP5yJMmIC1U=
 github.com/golang/protobuf v0.0.0-20180522224251-3a3da3a4e267 h1:yohGa5fiUaf1iF9Y5HvdLyjl3HA0iuPBhAe0X0LKDqw=
 github.com/golang/protobuf v0.0.0-20180522224251-3a3da3a4e267/go.mod h1:6lQm79b+lXiMfvg/cZm0SGofjICqVBUtrP5yJMmIC1U=
-github.com/grafana/grafana-plugin-model v0.0.0-20190905222103-7663311f6fbc h1:2dCckjbnQeSTJUdfaIO3rhtKnAlvIbq/33QflWBOvGY=
-github.com/grafana/grafana-plugin-model v0.0.0-20190905222103-7663311f6fbc/go.mod h1:61HQj0TcXe65fYyDq8Oqds/+9isXdFyZE38Dw3hTCho=
+github.com/grafana/grafana-plugin-model v0.0.0-20190906002829-a7284adfb995 h1:7wI/nT+lQYEiHZJ486mxyRqGGO0ttvUbKGLjKOYV6b0=
+github.com/grafana/grafana-plugin-model v0.0.0-20190906002829-a7284adfb995/go.mod h1:61HQj0TcXe65fYyDq8Oqds/+9isXdFyZE38Dw3hTCho=
 github.com/hashicorp/go-hclog v0.0.0-20180402200405-69ff559dc25f h1:t34t/ySFIGsPOLQ/dCcKeCoErlqhXlNLYvPn7mVogzo=
 github.com/hashicorp/go-hclog v0.0.0-20180402200405-69ff559dc25f/go.mod h1:9bjs9uLqI8l75knNv3lV1kA55veR+WUPSiKIWcQHudI=
 github.com/hashicorp/go-plugin v0.0.0-20180331002553-e8d22c780116 h1:Y4V/yReWjQo/Ngyc0w6C3EKXKincp4YgvXeo8lI4LrI=

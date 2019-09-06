@@ -26,7 +26,17 @@ type JsonDatasource struct {
 }
 
 func (t *JsonDatasource) Query(ctx context.Context, tsdbReq *datasource.DatasourceRequest, api datasource.GrafanaAPI) (*datasource.DatasourceResponse, error) {
-	t.logger.Debug("Query", "datasource", tsdbReq.Datasource.Name, "TimeRange", tsdbReq.TimeRange)
+	t.logger.With().Debug("Query", "datasource", tsdbReq.Datasource.Name, "TimeRange", tsdbReq.TimeRange, "requestId", tsdbReq.RequestId)
+
+	_, err := api.QueryDatasource(ctx, &datasource.QueryDatasourceRequest{
+		DatasourceId: 1,
+		Queries:      tsdbReq.Queries,
+		TimeRange:    tsdbReq.TimeRange,
+	})
+
+	if err != nil {
+		t.logger.Error("Failed to call api.QueryDatasource", "err", err)
+	}
 
 	remoteDsReq, err := t.createRequest(tsdbReq)
 	if err != nil {
