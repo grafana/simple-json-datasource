@@ -1,5 +1,5 @@
 // Types
-import { DataQueryRequest, DataQueryResponse, DataSourceApi, DataSourceInstanceSettings, MetricFindValue } from '@grafana/ui';
+import { DataQueryRequest, DataQueryResponse, DataSourceApi, DataSourceInstanceSettings, MetricFindValue } from '@grafana/data';
 import { GenericQuery, GenericOptions } from './types';
 
 import _ from 'lodash';

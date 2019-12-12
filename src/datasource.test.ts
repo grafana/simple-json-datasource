@@ -185,7 +185,11 @@ describe('GenericDatasource', () => {
   });
 
   it('should return text as text and value as value', done => {
-    const data = [{ text: 'zero', value: 'value_0' }, { text: 'one', value: 'value_1' }, { text: 'two', value: 'value_2' }];
+    const data = [
+      { text: 'zero', value: 'value_0' },
+      { text: 'one', value: 'value_1' },
+      { text: 'two', value: 'value_2' },
+    ];
 
     const result = ctx.ds.mapToTextValue({ data: data });
 
@@ -200,7 +204,11 @@ describe('GenericDatasource', () => {
   });
 
   it('should return data as text and index as value', done => {
-    const data = [{ a: 'zero', b: 'value_0' }, { a: 'one', b: 'value_1' }, { a: 'two', b: 'value_2' }];
+    const data = [
+      { a: 'zero', b: 'value_0' },
+      { a: 'one', b: 'value_1' },
+      { a: 'two', b: 'value_2' },
+    ];
 
     const result = ctx.ds.mapToTextValue({ data: data });
 
@@ -215,7 +223,10 @@ describe('GenericDatasource', () => {
   });
 
   it('should support tag keys', done => {
-    const data = [{ type: 'string', text: 'One', key: 'one' }, { type: 'string', text: 'two', key: 'Two' }];
+    const data = [
+      { type: 'string', text: 'One', key: 'one' },
+      { type: 'string', text: 'two', key: 'Two' },
+    ];
 
     ctx.backendSrv.datasourceRequest = (request: any) => {
       return Promise.resolve({
@@ -237,7 +248,11 @@ describe('GenericDatasource', () => {
   });
 
   it('should support tag values', done => {
-    const data = [{ key: 'eins', text: 'Eins!' }, { key: 'zwei', text: 'Zwei' }, { key: 'drei', text: 'Drei!' }];
+    const data = [
+      { key: 'eins', text: 'Eins!' },
+      { key: 'zwei', text: 'Zwei' },
+      { key: 'drei', text: 'Drei!' },
+    ];
 
     ctx.backendSrv.datasourceRequest = (request: any) => {
       return Promise.resolve({
