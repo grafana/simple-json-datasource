@@ -12,7 +12,6 @@ jobs:
     - run:
         name: Install yarn
         command: |
-          sudo npm install -g yarn --quiet
           yarn install --pure-lockfile
     - run:
         name: Run Toolkit Build
