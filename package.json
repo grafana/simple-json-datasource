@@ -4,8 +4,9 @@
   "description": "",
   "scripts": {
     "build": "grafana-toolkit plugin:build",
+    "test": "grafana-toolkit plugin:test",
     "dev": "grafana-toolkit plugin:dev",
-    "test": "grafana-toolkit plugin:test"
+    "watch": "grafana-toolkit plugin:dev --watch"
   },
   "repository": {
     "type": "git",

@@ -1,9 +1,19 @@
 version: 2
+
+aliases:
+  # Workflow filters
+  - &filter-only-master
+    branches:
+      only: master
+
+defaults: &defaults
+  working_directory: ~/work
+  docker:
+    - image: circleci/node:12
+
 jobs:
   build_plugin:
-    docker:
-    - image: circleci/node:10
-    working_directory: ~/plugin
+    <<: *defaults
     steps:
     - checkout
     - restore_cache:
@@ -24,10 +34,33 @@ jobs:
         root: .
         paths:
         - ci
+
+  build_docs:
+    <<: *defaults
+    steps:
+    - checkout
+    - restore_cache:
+        keys:
+        - yarn-packages-{{ checksum "yarn.lock" }}
+    - run:
+        name: Install yarn
+        command: |
+          yarn install --pure-lockfile
+          mkdir ci # Avoid error if not exists
+    - run:
+        name: Build Docs
+        command: npx grafana-toolkit plugin:ci-docs
+    - save_cache:
+        paths:
+        - node_modules
+        key: yarn-packages-{{ checksum "yarn.lock" }}
+    - persist_to_workspace:
+        root: .
+        paths:
+        - ci
+
   package:
-    docker:
-    - image: circleci/node:10
-    working_directory: ~/plugin
+    <<: *defaults
     steps:
     - checkout
     - attach_workspace:
@@ -37,18 +70,19 @@ jobs:
         - yarn-packages-{{ checksum "yarn.lock" }}
     - run:
         name: Package Distribution
-        command: npx grafana-toolkit plugin:ci-package
+        command: |
+          npx grafana-toolkit plugin:ci-package
     - persist_to_workspace:
         root: .
         paths:
-        - ci/jobs/package
-        - ci/packages
-        - ci/dist
-        - ci/grafana-test-env
-  test_6_2_5:
+        - ci
+    - store_artifacts:
+        path: ci/packages
+
+  test_integration:
+    <<: *defaults
     docker:
-    - image: circleci/node:10-browsers
-    working_directory: ~/plugin
+    - image: circleci/node:12-browsers
     steps:
     - checkout
     - attach_workspace:
@@ -59,9 +93,9 @@ jobs:
     - run:
         name: Setup Grafana (local install)
         command: |
-          wget https://dl.grafana.com/oss/release/grafana_6.2.5_amd64.deb
+          wget https://dl.grafana.com/oss/release/grafana_6.4.1_amd64.deb
           sudo apt-get install -y adduser libfontconfig1
-          sudo dpkg -i grafana_6.2.5_amd64.deb
+          sudo dpkg -i grafana_6.4.1_amd64.deb
           sudo apt-get install locate
           sudo updatedb
           sudo locate grafana
@@ -78,53 +112,14 @@ jobs:
     - persist_to_workspace:
         root: .
         paths:
-        - ci/jobs/test_6_2_5
+        - ci/jobs/test_integration
     - store_test_results:
-        path: ci/jobs/test_6_2_5
+        path: ci/jobs/test_integration
     - store_artifacts:
-        path: ci/jobs/test_6_2_5
-  test_6_3_0_beta1:
-    docker:
-    - image: circleci/node:10-browsers
-    working_directory: ~/plugin
-    steps:
-    - checkout
-    - attach_workspace:
-        at: .
-    - restore_cache:
-        keys:
-        - yarn-packages-{{ checksum "yarn.lock" }}
-    - run:
-        name: Setup Grafana (local install)
-        command: |
-          wget https://dl.grafana.com/oss/release/grafana_6.3.0-beta1_amd64.deb
-          sudo apt-get install -y adduser libfontconfig1
-          sudo dpkg -i grafana_6.3.0-beta1_amd64.deb
-          sudo apt-get install locate
-          sudo updatedb
-          sudo locate grafana
-          sudo cat /etc/grafana/grafana.ini
-          sudo echo ------------------------
-          sudo cp ci/grafana-test-env/custom.ini /usr/share/grafana/conf/custom.ini
-          sudo cp ci/grafana-test-env/custom.ini /etc/grafana/grafana.ini
-          sudo service grafana-server start
-          sudo grafana-cli --version
-    - run:
-        name: Run e2e tests
-        command: |
-          npx grafana-toolkit plugin:ci-test
-    - persist_to_workspace:
-        root: .
-        paths:
-        - ci/jobs/test_6_3_0_beta1
-    - store_test_results:
-        path: ci/jobs/test_6_3_0_beta1
-    - store_artifacts:
-        path: ci/jobs/test_6_3_0_beta1
+        path: ci/jobs/test_integration
+
   report:
-    docker:
-    - image: circleci/node:10
-    working_directory: ~/plugin
+    <<: *defaults
     steps:
     - checkout
     - attach_workspace:
@@ -134,24 +129,80 @@ jobs:
         - yarn-packages-{{ checksum "yarn.lock" }}
     - run:
         name: Toolkit Report
-        command: npx grafana-toolkit plugin:ci-report
+        command: |
+          npx grafana-toolkit plugin:ci-report
     - store_artifacts:
         path: ci
+
+
+  publish_github_release:
+    working_directory: ~/work
+    docker:
+      - image: cibuilds/github:0.13
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "ea:ae:a4:f7:7c:4f:46:c2:c1:ec:2a:a5:6c:1a:ca:d6"
+      - attach_workspace:
+          at: .
+      - run:
+          name: "Publish Release on GitHub"
+          command: |
+            DATASOURCE_NAME=grafana-json-datasource
+            # copy ci dist
+            cp -r ci/jobs/build_plugin/dist .
+            # copy ci artifacts
+            mkdir -p artifacts
+            cp -r ci/packages/* artifacts
+            #
+            apk add --update --no-cache jq
+            RELEASE_NOTES=`awk 'BEGIN {FS="##"; RS=""} FNR==3 {print; exit}' CHANGELOG.md`
+            VERSION=`cat dist/plugin.json|jq '.info.version'| sed s/\"//g`
+            ls -al
+            ls -al ./artifacts
+            git config user.email "eng@grafana.com"
+            git config user.name "CircleCI Automation"
+            git checkout -b release-${VERSION}
+            git add --force dist/
+            git add artifacts/
+            git commit -m "automated release $VERSION [skip ci]"
+            git push -f origin release-${VERSION}
+            git tag -f v${VERSION}
+            git push -f origin v${VERSION}
+            ghr \
+              -t ${GITHUB_TOKEN} \
+              -u ${CIRCLE_PROJECT_USERNAME} \
+              -r ${CIRCLE_PROJECT_REPONAME} \
+              -c ${CIRCLE_SHA1} \
+              -n "${DATASOURCE_NAME} v${VERSION}" \
+              -b "${RELEASE_NOTES}" \
+              -delete \
+              v${VERSION} \
+              ./artifacts/
+
 workflows:
   version: 2
   plugin_workflow:
     jobs:
     - build_plugin
+    - build_docs
     - package:
         requires:
         - build_plugin
-    - test_6_2_5:
-        requires:
-        - package
-    - test_6_3_0_beta1:
+        - build_docs
+    - test_integration:
         requires:
         - package
     - report:
         requires:
-        - test_6_2_5
-        - test_6_3_0_beta1
+        - test_integration
+    - approve_release:
+        type: approval
+        requires:
+          - report
+        filters: *filter-only-master
+    - publish_github_release:
+        requires:
+          - approve_release
+        filters: *filter-only-master
