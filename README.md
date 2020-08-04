@@ -216,8 +216,10 @@ npm run build
 
 ### Changelog
 
-1.4.0
+1.4.1
+- Fix for query editor to be compatible with Grafana 7+ (broke due to change in Grafana).
 
+1.4.0
 - Support for adhoc filters:
   - added tag-keys + tag-values api
   - added adHocFilters parameter to query body
