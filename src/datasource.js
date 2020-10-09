@@ -1,5 +1,7 @@
 import _ from "lodash";
 
+import { getDataSourceSrv } from '@grafana/runtime';
+
 export class GenericDatasource {
 
   constructor(instanceSettings, $q, backendSrv, templateSrv) {
@@ -20,6 +22,8 @@ export class GenericDatasource {
     var query = this.buildQueryParameters(options);
     query.targets = query.targets.filter(t => !t.hide);
 
+    query.variables = this.getVariables();
+
     if (query.targets.length <= 0) {
       return this.q.when({data: []});
     }
@@ -35,6 +39,18 @@ export class GenericDatasource {
       data: query,
       method: 'POST'
     });
+  }
+
+  getVariables() {
+    let dataSource = getDataSourceSrv();    
+    var vars = {};
+    if (!dataSource.templateSrv || !dataSource.templateSrv.variables) return vars;
+    
+    for (var key in dataSource.templateSrv.variables) {
+      var item = dataSource.templateSrv.variables[key];
+      vars[item.name] = item.current;
+    }
+    return vars;
   }
 
   testDatasource() {

@@ -11,6 +11,8 @@ var _lodash = require('lodash');
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
+var _runtime = require('@grafana/runtime');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -40,6 +42,8 @@ var GenericDatasource = exports.GenericDatasource = function () {
         return !t.hide;
       });
 
+      query.variables = this.getVariables();
+
       if (query.targets.length <= 0) {
         return this.q.when({ data: [] });
       }
@@ -55,6 +59,19 @@ var GenericDatasource = exports.GenericDatasource = function () {
         data: query,
         method: 'POST'
       });
+    }
+  }, {
+    key: 'getVariables',
+    value: function getVariables() {
+      var dataSource = (0, _runtime.getDataSourceSrv)();
+      var vars = {};
+      if (!dataSource.templateSrv || !dataSource.templateSrv.variables) return vars;
+
+      for (var key in dataSource.templateSrv.variables) {
+        var item = dataSource.templateSrv.variables[key];
+        vars[item.name] = item.current;
+      }
+      return vars;
     }
   }, {
     key: 'testDatasource',
