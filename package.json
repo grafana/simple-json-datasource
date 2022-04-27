@@ -23,7 +23,7 @@
     "babel-preset-env": "^1.7.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "chai": "~3.5.0",
-    "grunt": "^1.0.1",
+    "grunt": "^1.5.2",
     "grunt-babel": "~6.0.0",
     "grunt-cli": "^1.2.0",
     "grunt-contrib-clean": "^1.1.0",
