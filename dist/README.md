@@ -1,6 +1,13 @@
+# Deprecated plugin. Use [Infinity data source plugin](https://grafana.com/grafana/plugins/yesoreyeram-infinity-datasource/) instead
+
+## Project status
+
+> [!CAUTION]
+> This plugin is now **DEPRECATED** and **no longer maintained** by the Grafana team. You can use [Grafana Infinity data source plugin](https://grafana.com/grafana/plugins/yesoreyeram-infinity-datasource/) as an alternative for connecting to JSON/CSV/XML/GraphQL endpoints. Refer the migration guide [here](https://github.com/grafana/grafana-infinity-datasource/discussions/740), if you still prefer connecting to existing grafana simple JSON backend server implementation. This deprecation means that this plugin won't receive any feature updates or bug fixes. After 6 months (End of June 2024), the plugin will reach EOL and the repository will be archived. If you are looking for building your own plugin, consider the examples [here](https://github.com/grafana/grafana-plugin-examples) and documentation [here](https://grafana.com/developers).
+
 ## Simple JSON Datasource - a generic backend datasource
 
-More documentation about datasource plugins can be found in the [Docs](https://github.com/grafana/grafana/blob/master/docs/sources/plugins/developing/datasources.md).
+You can find more documentation about datasource plugins in Grafana's [Docs](https://grafana.com/docs/grafana/latest/developers/plugins/).
 
 This also serves as a living example implementation of a datasource.
 
@@ -10,7 +17,7 @@ Your backend needs to implement 4 urls:
  * `/search` used by the find metric options on the query tab in panels.
  * `/query` should return metrics based on input.
  * `/annotations` should return annotations.
- 
+
 Those two urls are optional:
 
  * `/tag-keys` should return tag keys for ad hoc filters.

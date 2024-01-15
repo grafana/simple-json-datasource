@@ -1,0 +1,12 @@
+apiVersion: 1
+datasources:
+  - name: Simple JSON - Fake service
+    type: grafana-simple-json-datasource
+    uid: simple-json
+    url: http://server:3333
+    access: proxy
+    isDefault: true
+  - name: Infinity - Fake service
+    type: yesoreyeram-infinity-datasource
+    uid: infinity
+    url: http://server:3333
