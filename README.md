@@ -1,13 +1,11 @@
-## Simple JSON Datasource - a generic backend datasource
+# Deprecated plugin. Use [Infinity data source plugin](https://grafana.com/grafana/plugins/yesoreyeram-infinity-datasource/) instead
 
-> This plugin is **no longer maintained** by the Grafana team.
->
-> If you're looking for an example of a data source plugin, refer to [grafana-starter-datasource-backend](https://github.com/grafana/grafana-starter-datasource-backend).
->
-> If you're using this plugin, check out a couple of alternatives:
->
-> - [JSON](https://grafana.com/grafana/plugins/simpod-json-datasource) by Šimon Podlipský
-> - [JSON API](https://grafana.com/grafana/plugins/marcusolsson-json-datasource) by Marcus Olsson
+## Project status
+
+> [!CAUTION]
+> This plugin is now **DEPRECATED** and **no longer maintained** by the Grafana team. You can use [Grafana Infinity data source plugin](https://grafana.com/grafana/plugins/yesoreyeram-infinity-datasource/) as an alternative for connecting to JSON/CSV/XML/GraphQL endpoints. Refer the migration guide [here](https://github.com/grafana/grafana-infinity-datasource/discussions/740), if you still prefer connecting to existing grafana simple JSON backend server implementation. This deprecation means that this plugin won't receive any feature updates or bug fixes. After 6 months (End of June 2024), the plugin will reach EOL and the repository will be archived. If you are looking for building your own plugin, consider the examples [here](https://github.com/grafana/grafana-plugin-examples) and documentation [here](https://grafana.com/developers).
+
+## Simple JSON Datasource - a generic backend datasource
 
 You can find more documentation about datasource plugins in Grafana's [Docs](https://grafana.com/docs/grafana/latest/developers/plugins/).
 
